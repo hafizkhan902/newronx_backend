@@ -86,10 +86,11 @@ const logConnectionStats = async () => {
   try {
     // Safely check if connection and pool exist
     if (mongoose.connection && mongoose.connection.pool) {
+      const pool = mongoose.connection.pool;
       console.log('📊 Database connection stats:', {
-        poolSize: mongoose.connection.pool.size || 'N/A',
-        available: mongoose.connection.pool.available || 'N/A',
-        pending: mongoose.connection.pool.pending || 'N/A'
+        poolSize: pool.size || 'N/A',
+        available: pool.available || 'N/A',
+        pending: pool.pending || 'N/A'
       });
     } else {
       console.log('📊 Database connected successfully');
