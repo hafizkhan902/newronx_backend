@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-class EmailService {
+export class EmailService {
   constructor() {
     this.transporter = null;
     this.initializeTransporter();
@@ -55,9 +55,9 @@ class EmailService {
     const { firstName, email, fullName } = user;
     
     const mailOptions = {
-      from: `"StudentMate Team" <${process.env.EMAIL_USER}>`,
+      from: `"NEWRONX Team" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Welcome to StudentMate! 🎉',
+      subject: 'Welcome to NEWRONX!! 🎉',
       html: this.getWelcomeEmailTemplate(firstName, fullName)
     };
 
@@ -76,9 +76,9 @@ class EmailService {
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
     
     const mailOptions = {
-      from: `"StudentMate Team" <${process.env.EMAIL_USER}>`,
+      from: `"Newronx Team" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Password Reset Request - StudentMate',
+      subject: 'Password Reset Request - Newronx',
       html: this.getPasswordResetTemplate(resetUrl)
     };
 
@@ -95,7 +95,7 @@ class EmailService {
   // Send notification email
   async sendNotificationEmail(user, subject, content) {
     const mailOptions = {
-      from: `"StudentMate Team" <${process.env.EMAIL_USER}>`,
+      from: `"Newronx Team" <${process.env.EMAIL_USER}>`,
       to: user.email,
       subject: subject,
       html: this.getNotificationTemplate(user.firstName, content)
@@ -114,9 +114,9 @@ class EmailService {
   // Send email verification OTP
   async sendEmailVerificationOTP(user, otpCode) {
     const mailOptions = {
-      from: `"StudentMate Team" <${process.env.EMAIL_USER}>`,
+      from: `"Newronx Team" <${process.env.EMAIL_USER}>`,
       to: user.email,
-      subject: 'Verify Your Email - StudentMate',
+      subject: 'Verify Your Email - Newronx',
       html: this.getEmailVerificationTemplate(user.firstName, otpCode)
     };
 
@@ -133,9 +133,9 @@ class EmailService {
   // Resend email verification OTP
   async resendEmailVerificationOTP(user, otpCode) {
     const mailOptions = {
-      from: `"StudentMate Team" <${process.env.EMAIL_USER}>`,
+      from: `"Newronx Team" <${process.env.EMAIL_USER}>`,
       to: user.email,
-      subject: 'Email Verification Code - StudentMate',
+      subject: 'Email Verification Code - Newronx',
       html: this.getEmailVerificationTemplate(user.firstName, otpCode)
     };
 
@@ -157,7 +157,7 @@ class EmailService {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to StudentMate</title>
+        <title>Welcome to Newronx</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -241,16 +241,16 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <div class="logo">🎓 StudentMate</div>
+            <div class="logo">NEWRONX</div>
             <div class="welcome-text">Welcome, ${firstName}! 👋</div>
           </div>
           
           <div class="content">
             <p>Hi ${fullName},</p>
             
-            <p>Welcome to StudentMate! We're excited to have you join our community of students, mentors, and innovators.</p>
+            <p>Welcome to Newronx! We're excited to have you join our community of Enterpreneurs, mentors, and innovators.</p>
             
-            <p>StudentMate is your platform for:</p>
+            <p>Newronx is your platform for:</p>
             
             <div class="feature-list">
               <div class="feature-item">Sharing and collaborating on innovative ideas</div>
@@ -282,7 +282,7 @@ class EmailService {
               <a href="#">Privacy Policy</a>
             </div>
             
-            <p>© 2024 StudentMate. All rights reserved.</p>
+            <p>© 2024 Newronx. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -298,7 +298,7 @@ class EmailService {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Password Reset - StudentMate</title>
+        <title>Password Reset - Newronx</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -348,12 +348,12 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <div class="logo">🎓 StudentMate</div>
+            <div class="logo">🎓 Newronx</div>
             <h2>Password Reset Request</h2>
           </div>
           
           <div class="content">
-            <p>You requested a password reset for your StudentMate account.</p>
+            <p>You requested a password reset for your Newronx account.</p>
             
             <p>Click the button below to reset your password:</p>
             
@@ -367,7 +367,7 @@ class EmailService {
           </div>
           
           <div class="footer">
-            <p>© 2024 StudentMate. All rights reserved.</p>
+            <p>© 2024 Newronx. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -383,7 +383,7 @@ class EmailService {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Notification - StudentMate</title>
+        <title>Notification - Newronx</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -423,7 +423,7 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <div class="logo">🎓 StudentMate</div>
+            <div class="logo">🎓 Newronx</div>
           </div>
           
           <div class="content">
@@ -433,7 +433,7 @@ class EmailService {
           </div>
           
           <div class="footer">
-            <p>© 2024 StudentMate. All rights reserved.</p>
+            <p>© 2024 Newronx. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -449,7 +449,7 @@ class EmailService {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Verification - StudentMate</title>
+        <title>Email Verification - Newronx</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -513,14 +513,14 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <div class="logo">🎓 StudentMate</div>
+            <div class="logo">NEWRONX</div>
             <h2>Email Verification</h2>
           </div>
           
           <div class="content">
             <p>Hi ${firstName},</p>
             
-            <p>Thank you for registering with StudentMate! To complete your account setup, please verify your email address.</p>
+            <p>Thank you for registering with NEWRONX! To complete your account setup, please verify your email address.</p>
             
             <p>Your verification code is:</p>
             
@@ -543,7 +543,7 @@ class EmailService {
           </div>
           
           <div class="footer">
-            <p>© 2024 StudentMate. All rights reserved.</p>
+            <p>© 2025 Newronx. All rights reserved.</p>
           </div>
         </div>
       </body>
