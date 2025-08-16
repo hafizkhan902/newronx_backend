@@ -19,8 +19,8 @@ export const config = {
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      maxPoolSize: parseInt(process.env.DB_MAX_POOL_SIZE) || 5,
-      minPoolSize: parseInt(process.env.DB_MIN_POOL_SIZE) || 1,
+      maxPoolSize: parseInt(process.env.DB_MAX_POOL_SIZE) || 10, // Increased from 5
+      minPoolSize: parseInt(process.env.DB_MIN_POOL_SIZE) || 2,  // Increased from 1
       serverSelectionTimeoutMS: parseInt(process.env.DB_SERVER_SELECTION_TIMEOUT) || 5000,
       socketTimeoutMS: parseInt(process.env.DB_SOCKET_TIMEOUT) || 45000,
       bufferCommands: false
