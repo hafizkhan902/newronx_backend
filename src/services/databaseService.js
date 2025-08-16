@@ -396,7 +396,7 @@ export class DatabaseService {
     }
 
     // Clean up old metrics (keep last 1000)
-    if (this.queryMetrics.size > 1000) {
+    if (this.queryMetrics && this.queryMetrics.size > 1000) {
       const keys = Array.from(this.queryMetrics.keys());
       keys.slice(0, 100).forEach(key => this.queryMetrics.delete(key));
     }
@@ -432,11 +432,31 @@ export class DatabaseService {
   static getPoolStats() {
     const connection = mongoose.connection;
     if (connection && connection.db) {
+      // Safely access pool properties
+      const pool = connection.pool;
+      if (pool) {
+        this.poolStats = {
+          totalConnections: pool.size || 0,
+          activeConnections: pool.available || 0,
+          idleConnections: (pool.size || 0) - (pool.available || 0),
+          waitingRequests: pool.pending || 0
+        };
+      } else {
+        // Pool not available, use default values
+        this.poolStats = {
+          totalConnections: 0,
+          activeConnections: 0,
+          idleConnections: 0,
+          waitingRequests: 0
+        };
+      }
+    } else {
+      // Connection not ready, use default values
       this.poolStats = {
-        totalConnections: connection.pool.size || 0,
-        activeConnections: connection.pool.available || 0,
-        idleConnections: (connection.pool.size || 0) - (connection.pool.available || 0),
-        waitingRequests: connection.pool.pending || 0
+        totalConnections: 0,
+        activeConnections: 0,
+        idleConnections: 0,
+        waitingRequests: 0
       };
     }
     return this.poolStats;
@@ -483,23 +503,40 @@ export class DatabaseService {
   // Get query performance metrics
   static getQueryMetrics() {
     const metrics = Array.from(this.queryMetrics.values());
+    
+    // Handle case where there are no metrics
+    if (metrics.length === 0) {
+      return {
+        totalQueries: 0,
+        slowQueries: 0,
+        averageDuration: 0,
+        slowestQuery: { duration: 0 },
+        queriesByModel: {},
+        queriesByOperation: {}
+      };
+    }
+    
     const summary = {
       totalQueries: metrics.length,
       slowQueries: metrics.filter(m => m.isSlow).length,
-      averageDuration: metrics.reduce((sum, m) => sum + m.duration, 0) / metrics.length,
-      slowestQuery: metrics.reduce((max, m) => m.duration > max.duration ? m : max, { duration: 0 }),
+      averageDuration: Math.round(metrics.reduce((sum, m) => sum + (m.duration || 0), 0) / metrics.length),
+      slowestQuery: metrics.reduce((max, m) => (m.duration || 0) > (max.duration || 0) ? m : max, { duration: 0 }),
       queriesByModel: {},
       queriesByOperation: {}
     };
 
     // Group by model
     metrics.forEach(m => {
-      summary.queriesByModel[m.modelName] = (summary.queriesByModel[m.modelName] || 0) + 1;
+      if (m.modelName) {
+        summary.queriesByModel[m.modelName] = (summary.queriesByModel[m.modelName] || 0) + 1;
+      }
     });
 
     // Group by operation
     metrics.forEach(m => {
-      summary.queriesByOperation[m.operation] = (summary.queriesByOperation[m.operation] || 0) + 1;
+      if (m.operation) {
+        summary.queriesByOperation[m.operation] = (summary.queriesByOperation[m.operation] || 0) + 1;
+      }
     });
 
     return summary;
