@@ -58,6 +58,24 @@ if (config.performance.compression) {
   app.use(compression()); // Compress responses
 }
 
+// Always enable compression in production for better performance
+if (process.env.NODE_ENV === 'production') {
+  app.use(compression({
+    level: 6, // Optimal compression level
+    threshold: 1024, // Compress responses larger than 1KB
+    filter: (req, res) => {
+      // Don't compress if client doesn't support it
+      if (req.headers['x-no-compression']) {
+        return false;
+      }
+      // Use compression for all other responses
+      return compression.filter(req, res);
+    }
+  }));
+} else if (config.performance.compression) {
+  app.use(compression()); // Use config setting in development
+}
+
 app.use(express.json({ limit: config.performance.maxRequestBodySize })); // Limit request size
 app.use(express.urlencoded({ extended: true, limit: config.performance.maxRequestBodySize }));
 app.use(cookieParser());
@@ -130,12 +148,15 @@ app.use(passport.session());
 // Health check endpoint
 app.get('/health', async (req, res) => {
   try {
-    const { quickHealth } = await import('./services/healthService.js');
-    const health = await quickHealth();
-    res.status(200).json(health);
+    const { healthCheck } = await import('./services/healthService.js');
+    const health = await healthCheck();
+    res.json(health);
   } catch (error) {
-    logger.error('Health check failed', { error: error.message });
-    res.status(500).json({ status: 'error', message: 'Health check failed' });
+    res.status(500).json({
+      status: 'error',
+      message: 'Health check failed',
+      error: error.message
+    });
   }
 });
 
@@ -144,10 +165,210 @@ app.get('/health/full', async (req, res) => {
   try {
     const { healthCheck } = await import('./services/healthService.js');
     const health = await healthCheck();
-    res.status(200).json(health);
+    res.json(health);
   } catch (error) {
-    logger.error('Full health check failed', { error: error.message });
-    res.status(500).json({ status: 'error', message: 'Full health check failed' });
+    res.status(500).json({
+      status: 'error',
+      message: 'Health check failed',
+      error: error.message
+    });
+  }
+});
+
+// Database performance monitoring endpoint
+app.get('/health/database', async (req, res) => {
+  try {
+    const { getHealthStatus, getQueryMetrics, monitorPoolHealth } = await import('./services/databaseService.js');
+    
+    const [dbHealth, queryMetrics, poolHealth] = await Promise.all([
+      getHealthStatus(),
+      getQueryMetrics(),
+      monitorPoolHealth()
+    ]);
+
+    res.json({
+      status: 'success',
+      timestamp: new Date().toISOString(),
+      database: dbHealth,
+      queries: queryMetrics,
+      connectionPool: poolHealth,
+      recommendations: dbHealth.recommendations || []
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Database health check failed',
+      error: error.message
+    });
+  }
+});
+
+// Database optimization recommendations endpoint
+app.get('/health/database/optimize', async (req, res) => {
+  try {
+    const { getQueryMetrics, monitorPoolHealth } = await import('./services/databaseService.js');
+    
+    const [queryMetrics, poolHealth] = await Promise.all([
+      getQueryMetrics(),
+      monitorPoolHealth()
+    ]);
+
+    const recommendations = [];
+
+    // Query performance recommendations
+    if (queryMetrics.slowQueries > queryMetrics.totalQueries * 0.1) {
+      recommendations.push({
+        type: 'warning',
+        category: 'query_performance',
+        message: 'More than 10% of queries are slow',
+        impact: 'high',
+        suggestion: 'Review and optimize database indexes, consider query caching'
+      });
+    }
+
+    if (queryMetrics.averageDuration > 100) {
+      recommendations.push({
+        type: 'warning',
+        category: 'query_performance',
+        message: 'Average query duration is high',
+        impact: 'medium',
+        suggestion: 'Optimize query patterns and add missing indexes'
+      });
+    }
+
+    // Connection pool recommendations
+    if (poolHealth.waitingRequests > 10) {
+      recommendations.push({
+        type: 'warning',
+        category: 'connection_pool',
+        message: 'High number of waiting database requests',
+        impact: 'high',
+        suggestion: 'Increase connection pool size or optimize query patterns'
+      });
+    }
+
+    if (poolHealth.activeConnections === 0 && poolHealth.totalConnections > 0) {
+      recommendations.push({
+        type: 'critical',
+        category: 'connection_pool',
+        message: 'No active database connections available',
+        impact: 'critical',
+        suggestion: 'Check database connectivity and connection pool configuration'
+      });
+    }
+
+    // Index recommendations
+    if (queryMetrics.queriesByModel) {
+      Object.entries(queryMetrics.queriesByModel).forEach(([model, count]) => {
+        if (count > 100) {
+          recommendations.push({
+            type: 'info',
+            category: 'indexing',
+            message: `High query volume on ${model} model`,
+            impact: 'medium',
+            suggestion: `Consider adding compound indexes for frequently queried fields in ${model}`
+          });
+        }
+      });
+    }
+
+    res.json({
+      status: 'success',
+      timestamp: new Date().toISOString(),
+      recommendations,
+      metrics: {
+        queries: queryMetrics,
+        connectionPool: poolHealth
+      },
+      summary: {
+        totalRecommendations: recommendations.length,
+        critical: recommendations.filter(r => r.type === 'critical').length,
+        warnings: recommendations.filter(r => r.type === 'warning').length,
+        info: recommendations.filter(r => r.type === 'info').length
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Database optimization analysis failed',
+      error: error.message
+    });
+  }
+});
+
+// Cache management endpoint
+app.post('/health/cache/clear', async (req, res) => {
+  try {
+    const { clearQueryCache } = await import('./services/databaseService.js');
+    clearQueryCache();
+    
+    res.json({
+      status: 'success',
+      message: 'Query cache cleared successfully',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Failed to clear cache',
+      error: error.message
+    });
+  }
+});
+
+// Performance monitoring endpoint
+app.get('/health/performance', async (req, res) => {
+  try {
+    const { getQueryMetrics, monitorPoolHealth } = await import('./services/databaseService.js');
+    
+    // Get system performance metrics
+    const systemMetrics = {
+      memory: process.memoryUsage(),
+      cpu: process.cpuUsage(),
+      uptime: process.uptime(),
+      nodeVersion: process.version,
+      platform: process.platform,
+      arch: process.arch
+    };
+
+    // Get database performance metrics
+    const [queryMetrics, poolHealth] = await Promise.all([
+      getQueryMetrics(),
+      monitorPoolHealth()
+    ]);
+
+    // Calculate performance scores
+    const performanceScore = {
+      database: Math.max(0, 100 - (queryMetrics.averageDuration || 0) / 2), // Higher score for faster queries
+      connections: Math.max(0, 100 - (poolHealth.waitingRequests || 0) * 5), // Higher score for fewer waiting requests
+      memory: Math.max(0, 100 - (systemMetrics.memory.heapUsed / systemMetrics.memory.heapTotal) * 100), // Higher score for lower memory usage
+      overall: 0
+    };
+
+    // Calculate overall score
+    performanceScore.overall = Math.round(
+      (performanceScore.database + performanceScore.connections + performanceScore.memory) / 3
+    );
+
+    res.json({
+      status: 'success',
+      timestamp: new Date().toISOString(),
+      performance: {
+        score: performanceScore,
+        system: systemMetrics,
+        database: {
+          queries: queryMetrics,
+          connections: poolHealth
+        }
+      },
+      recommendations: []
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Performance monitoring failed',
+      error: error.message
+    });
   }
 });
 

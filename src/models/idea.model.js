@@ -258,8 +258,216 @@ ideaSchema.index({
   uniqueValue: 'text'
 });
 
-// Middleware to update counts
+// ===== ADVANCED DATABASE OPTIMIZATION: COMPREHENSIVE INDEXING =====
+
+// Primary performance indexes
+ideaSchema.index({ author: 1, createdAt: -1 }, { background: true }); // User's ideas
+ideaSchema.index({ privacy: 1, createdAt: -1 }, { background: true }); // Public ideas by date
+ideaSchema.index({ status: 1, createdAt: -1 }, { background: true }); // Ideas by status
+
+// Compound indexes for complex queries
+ideaSchema.index({ 
+  privacy: 1, 
+  status: 1, 
+  createdAt: -1 
+}, { background: true });
+
+ideaSchema.index({ 
+  tags: 1, 
+  privacy: 1, 
+  createdAt: -1 
+}, { background: true });
+
+ideaSchema.index({ 
+  author: 1, 
+  privacy: 1, 
+  status: 1 
+}, { background: true });
+
+// Performance indexes for frequently accessed fields
+ideaSchema.index({ appreciateCount: -1 }, { background: true }); // Trending ideas
+ideaSchema.index({ proposeCount: -1 }, { background: true }); // Most proposed ideas
+ideaSchema.index({ suggestCount: -1 }, { background: true }); // Most suggested ideas
+ideaSchema.index({ viewCount: -1 }, { background: true }); // Most viewed ideas
+
+// NDA and collaboration indexes
+ideaSchema.index({ 
+  'ndaProtection.enabled': 1, 
+  privacy: 1 
+}, { background: true });
+
+ideaSchema.index({ 
+  'ndaProtection.requiresNDA': 1, 
+  privacy: 1 
+}, { background: true });
+
+// Time-based indexes for analytics
+ideaSchema.index({ 
+  createdAt: 1, 
+  privacy: 1 
+}, { background: true });
+
+ideaSchema.index({ 
+  updatedAt: -1, 
+  privacy: 1 
+}, { background: true });
+
+// Partial indexes for conditional queries
+ideaSchema.index(
+  { privacy: 1, status: 1, createdAt: -1 },
+  { 
+    partialFilterExpression: { privacy: 'Public', status: 'active' },
+    background: true 
+  }
+);
+
+ideaSchema.index(
+  { tags: 1, privacy: 1, createdAt: -1 },
+  { 
+    partialFilterExpression: { privacy: 'Public' },
+    background: true 
+  }
+);
+
+// ===== QUERY OPTIMIZATION: STATIC METHODS =====
+
+// Find trending ideas with pagination
+ideaSchema.statics.findTrending = function(options = {}) {
+  const { page = 1, limit = 10, timeRange = '7d' } = options;
+  
+  const dateFilter = getDateFilter(timeRange);
+  
+  return this.find({
+    privacy: 'Public',
+    status: 'active',
+    createdAt: dateFilter
+  })
+  .sort({ appreciateCount: -1, viewCount: -1, createdAt: -1 })
+  .select('-__v')
+  .populate('author', 'firstName lastName fullName avatar')
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .lean();
+};
+
+// Find ideas by tags with pagination
+ideaSchema.statics.findByTags = function(tags, options = {}) {
+  const { page = 1, limit = 10, sort = { createdAt: -1 } } = options;
+  
+  return this.find({
+    tags: { $in: tags },
+    privacy: 'Public',
+    status: 'active'
+  })
+  .sort(sort)
+  .select('-__v')
+  .populate('author', 'firstName lastName fullName avatar')
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .lean();
+};
+
+// Search ideas with advanced filters
+ideaSchema.statics.searchIdeas = function(searchTerm, options = {}) {
+  const { 
+    page = 1, 
+    limit = 10, 
+    filters = {}, 
+    sort = { score: { $meta: 'textScore' } } 
+  } = options;
+  
+  const searchQuery = {
+    $text: { $search: searchTerm },
+    privacy: 'Public',
+    status: 'active',
+    ...filters
+  };
+  
+  return this.find(searchQuery)
+  .sort(sort)
+  .select('-__v')
+  .populate('author', 'firstName lastName fullName avatar')
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .lean();
+};
+
+// Find user's ideas with privacy filtering
+ideaSchema.statics.findUserIdeas = function(userId, options = {}) {
+  const { 
+    page = 1, 
+    limit = 10, 
+    privacy = null, 
+    status = null,
+    sort = { createdAt: -1 } 
+  } = options;
+  
+  const query = { author: userId };
+  if (privacy) query.privacy = privacy;
+  if (status) query.status = status;
+  
+  return this.find(query)
+  .sort(sort)
+  .select('-__v')
+  .populate('author', 'firstName lastName fullName avatar')
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .lean();
+};
+
+// Get idea statistics for analytics
+ideaSchema.statics.getStats = async function(userId = null) {
+  const matchStage = userId ? { author: userId } : {};
+  
+  const stats = await this.aggregate([
+    { $match: matchStage },
+    {
+      $group: {
+        _id: null,
+        totalIdeas: { $sum: 1 },
+        publicIdeas: { $sum: { $cond: [{ $eq: ['$privacy', 'Public'] }, 1, 0] } },
+        privateIdeas: { $sum: { $cond: [{ $eq: ['$privacy', 'Private'] }, 1, 0] } },
+        teamIdeas: { $sum: { $cond: [{ $eq: ['$privacy', 'Team'] }, 1, 0] } },
+        totalAppreciations: { $sum: '$appreciateCount' },
+        totalProposals: { $sum: '$proposeCount' },
+        totalSuggestions: { $sum: '$suggestCount' },
+        totalViews: { $sum: '$viewCount' },
+        averageAppreciations: { $avg: '$appreciateCount' },
+        averageViews: { $avg: '$viewCount' }
+      }
+    }
+  ]);
+  
+  return stats[0] || {};
+};
+
+// ===== HELPER FUNCTIONS =====
+
+function getDateFilter(timeRange) {
+  const now = new Date();
+  const ranges = {
+    '1d': new Date(now.getTime() - 24 * 60 * 60 * 1000),
+    '7d': new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
+    '30d': new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000),
+    '90d': new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
+  };
+  
+  return { $gte: ranges[timeRange] || ranges['7d'] };
+}
+
+// ===== PERFORMANCE OPTIMIZATION: MIDDLEWARE =====
+
+// Pre-save middleware for data optimization
 ideaSchema.pre('save', function(next) {
+  // Auto-generate title slug if not provided
+  if (this.title && !this.titleSlug) {
+    this.titleSlug = this.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  }
+  
+  // Update counts
   if (this.isModified('likes')) {
     this.appreciateCount = this.likes.length;
   }
@@ -272,13 +480,68 @@ ideaSchema.pre('save', function(next) {
   if (this.isModified('suggestions')) {
     this.suggestCount = this.suggestions.length;
   }
+  
+  // Update timestamps
+  this.updatedAt = new Date();
+  
   next();
 });
 
-// Virtual for checking if idea is appreciated by a user
-ideaSchema.virtual('isAppreciatedBy').get(function(userId) {
-  return this.appreciatedBy.includes(userId);
+// Pre-find middleware for query optimization
+ideaSchema.pre('find', function() {
+  // Add default sorting for better performance
+  if (!this._mongooseOptions.sort) {
+    this.sort({ createdAt: -1 });
+  }
 });
+
+// Pre-findOne middleware for query optimization
+ideaSchema.pre('findOne', function() {
+  // Add default projection for better performance
+  if (!this._mongooseOptions.projection) {
+    this.select('-__v');
+  }
+});
+
+// ===== INSTANCE METHODS FOR OPTIMIZED OPERATIONS =====
+
+// Increment view count
+ideaSchema.methods.incrementView = async function() {
+  this.viewCount = (this.viewCount || 0) + 1;
+  return await this.save();
+};
+
+// Add appreciation
+ideaSchema.methods.addAppreciation = async function(userId) {
+  if (!this.appreciatedBy.includes(userId)) {
+    this.appreciatedBy.push(userId);
+    this.appreciateCount = this.appreciatedBy.length;
+    return await this.save();
+  }
+  return this;
+};
+
+// Remove appreciation
+ideaSchema.methods.removeAppreciation = async function(userId) {
+  this.appreciatedBy = this.appreciatedBy.filter(id => id.toString() !== userId.toString());
+  this.appreciateCount = this.appreciatedBy.length;
+  return await this.save();
+};
+
+// Add tag with deduplication
+ideaSchema.methods.addTag = async function(tag) {
+  if (!this.tags.includes(tag)) {
+    this.tags.push(tag);
+    return await this.save();
+  }
+  return this;
+};
+
+// Remove tag
+ideaSchema.methods.removeTag = async function(tag) {
+  this.tags = this.tags.filter(t => t !== tag);
+  return await this.save();
+};
 
 const Idea = mongoose.model('Idea', ideaSchema);
 

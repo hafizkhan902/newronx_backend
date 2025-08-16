@@ -296,6 +296,228 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
+// ===== DATABASE OPTIMIZATION: COMPREHENSIVE INDEXING =====
+
+// Primary indexes for unique fields
+userSchema.index({ email: 1 }, { unique: true, background: true });
+userSchema.index({ googleId: 1 }, { unique: true, sparse: true, background: true });
+userSchema.index({ googleEmail: 1 }, { unique: true, sparse: true, background: true });
+
+// Performance indexes for frequently queried fields
+userSchema.index({ authProvider: 1, emailVerified: 1 }, { background: true });
+userSchema.index({ createdAt: -1 }, { background: true }); // For sorting by registration date
+userSchema.index({ updatedAt: -1 }, { background: true }); // For sorting by last update
+
+// Search and discovery indexes
+userSchema.index({ 
+  firstName: 'text', 
+  lastName: 'text', 
+  fullName: 'text', 
+  bio: 'text',
+  skills: 'text',
+  address: 'text'
+}, { 
+  name: 'user_search_index',
+  weights: {
+    firstName: 10,
+    lastName: 10,
+    fullName: 8,
+    bio: 5,
+    skills: 7,
+    address: 3
+  },
+  background: true 
+});
+
+// Compound indexes for complex queries
+userSchema.index({ 
+  authProvider: 1, 
+  emailVerified: 1, 
+  createdAt: -1 
+}, { background: true });
+
+userSchema.index({ 
+  skills: 1, 
+  authProvider: 1, 
+  emailVerified: 1 
+}, { background: true });
+
+userSchema.index({ 
+  'privacy.profileVisibility': 1, 
+  emailVerified: 1 
+}, { background: true });
+
+// Geospatial index for location-based queries (if implementing location features)
+// userSchema.index({ location: '2dsphere' }, { background: true });
+
+// Partial indexes for conditional queries
+userSchema.index(
+  { emailVerified: 1, createdAt: -1 },
+  { 
+    partialFilterExpression: { emailVerified: true },
+    background: true 
+  }
+);
+
+userSchema.index(
+  { 'privacy.profileVisibility': 1, skills: 1 },
+  { 
+    partialFilterExpression: { 'privacy.profileVisibility': 'public' },
+    background: true 
+  }
+);
+
+// ===== QUERY OPTIMIZATION: VIRTUAL FIELDS =====
+
+// Virtual for full name (computed field)
+userSchema.virtual('displayName').get(function() {
+  return this.fullName || `${this.firstName} ${this.lastName}`.trim();
+});
+
+// Virtual for profile completeness score
+userSchema.virtual('profileCompleteness').get(function() {
+  const fields = ['firstName', 'lastName', 'bio', 'avatar', 'skills', 'address'];
+  const completed = fields.filter(field => this[field] && 
+    (Array.isArray(this[field]) ? this[field].length > 0 : this[field].toString().trim() !== '')
+  ).length;
+  return Math.round((completed / fields.length) * 100);
+});
+
+// Virtual for account age
+userSchema.virtual('accountAge').get(function() {
+  if (!this.createdAt) return 0;
+  const now = new Date();
+  const diffTime = Math.abs(now - this.createdAt);
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Days
+});
+
+// ===== PERFORMANCE OPTIMIZATION: MIDDLEWARE =====
+
+// Pre-save middleware for data optimization
+userSchema.pre('save', function(next) {
+  // Auto-generate fullName if not provided
+  if (!this.fullName && this.firstName && this.lastName) {
+    this.fullName = `${this.firstName} ${this.lastName}`;
+  }
+  
+  // Normalize email
+  if (this.email) {
+    this.email = this.email.toLowerCase().trim();
+  }
+  
+  // Normalize phone
+  if (this.phone) {
+    this.phone = this.phone.replace(/\D/g, ''); // Remove non-digits
+  }
+  
+  // Update timestamps
+  this.updatedAt = new Date();
+  
+  next();
+});
+
+// Pre-find middleware for query optimization
+userSchema.pre('find', function() {
+  // Add default sorting for better performance
+  if (!this._mongooseOptions.sort) {
+    this.sort({ createdAt: -1 });
+  }
+});
+
+// Pre-findOne middleware for query optimization
+userSchema.pre('findOne', function() {
+  // Add default projection for better performance
+  if (!this._mongooseOptions.projection) {
+    this.select('-password -emailVerificationOTP -__v');
+  }
+});
+
+// ===== STATIC METHODS FOR OPTIMIZED QUERIES =====
+
+// Find users by skills with pagination
+userSchema.statics.findBySkills = function(skills, options = {}) {
+  const { page = 1, limit = 10, sort = { createdAt: -1 } } = options;
+  
+  return this.find({
+    skills: { $in: skills },
+    'privacy.profileVisibility': 'public',
+    emailVerified: true
+  })
+  .select('-password -emailVerificationOTP -__v')
+  .sort(sort)
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .lean();
+};
+
+// Find users for collaboration
+userSchema.statics.findCollaborators = function(excludeUserId, criteria = {}) {
+  return this.find({
+    _id: { $ne: excludeUserId },
+    'privacy.profileVisibility': 'public',
+    emailVerified: true,
+    'privacy.ideaCollaboration': true,
+    ...criteria
+  })
+  .select('-password -emailVerificationOTP -__v')
+  .sort({ 'profileCompleteness': -1, createdAt: -1 })
+  .lean();
+};
+
+// Search users with text search
+userSchema.statics.searchUsers = function(searchTerm, options = {}) {
+  const { page = 1, limit = 10, filters = {} } = options;
+  
+  const searchQuery = {
+    $text: { $search: searchTerm },
+    'privacy.profileVisibility': 'public',
+    emailVerified: true,
+    ...filters
+  };
+  
+  return this.find(searchQuery)
+  .select('-password -emailVerificationOTP -__v')
+  .sort({ score: { $meta: 'textScore' } })
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .lean();
+};
+
+// ===== INSTANCE METHODS FOR OPTIMIZED OPERATIONS =====
+
+// Update profile with validation
+userSchema.methods.updateProfile = async function(updates) {
+  const allowedUpdates = [
+    'firstName', 'lastName', 'bio', 'avatar', 'skills', 
+    'address', 'phone', 'socialLinks', 'theme'
+  ];
+  
+  const filteredUpdates = {};
+  allowedUpdates.forEach(field => {
+    if (updates[field] !== undefined) {
+      filteredUpdates[field] = updates[field];
+    }
+  });
+  
+  Object.assign(this, filteredUpdates);
+  return await this.save();
+};
+
+// Add skill with deduplication
+userSchema.methods.addSkill = async function(skill) {
+  if (!this.skills.includes(skill)) {
+    this.skills.push(skill);
+    return await this.save();
+  }
+  return this;
+};
+
+// Remove skill
+userSchema.methods.removeSkill = async function(skill) {
+  this.skills = this.skills.filter(s => s !== skill);
+  return await this.save();
+};
+
 const User = mongoose.model('User', userSchema);
 
 export default User; 
