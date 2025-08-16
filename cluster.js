@@ -19,8 +19,9 @@ if (cluster.isPrimary) {
 
   cluster.on('exit', (worker, code, signal) => {
     console.log(`Worker ${worker.process.pid} died`);
-    console.log('Starting a new worker...');
+    console.log('Starting a new wo...');
     cluster.fork();
+    console.log('Worker started');
   });
 
   cluster.on('online', (worker) => {
