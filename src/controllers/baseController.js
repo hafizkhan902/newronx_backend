@@ -2,13 +2,15 @@ import ResponseService from '../services/responseService.js';
 import { asyncHandler } from '../services/errorService.js';
 
 class BaseController {
-  // Use ResponseService for consistent responses
-  sendSuccess = (res, data, message = 'Success', statusCode = 200) => {
-    return ResponseService.success(res, data, message, statusCode);
+  // Use ResponseService for consistent responses with FRONTEND COMPATIBILITY
+  sendSuccess = async (res, data, message = 'Success', statusCode = 200) => {
+    // Use legacy format for frontend compatibility
+    return await ResponseService.legacySuccess(res, data, message, statusCode);
   };
 
   sendError = (res, error, statusCode = 500) => {
-    return ResponseService.error(res, error.message || 'Internal server error', statusCode);
+    // Use legacy format for frontend compatibility
+    return ResponseService.legacyError(res, error.message || 'Internal server error', statusCode, error.errors);
   };
 
   sendNotFound = (res, message = 'Resource not found') => {

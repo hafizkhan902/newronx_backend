@@ -73,15 +73,50 @@ class AuthService {
     };
   }
 
+  // Check account type and login method
+  async checkAccountType(email) {
+    if (!email) {
+      throw new Error('Email is required.');
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return { exists: false, type: 'unknown', message: 'Account not found' };
+    }
+
+    return {
+      exists: true,
+      type: user.authProvider || 'local',
+      emailVerified: user.emailVerified,
+      canLoginWithPassword: this.canLoginWithPassword(user),
+      message: user.authProvider === 'google' 
+        ? 'This account was created with Google. Please use Google login instead.'
+        : 'Account found. You can login with password.'
+    };
+  }
+
   // User login
   async login(email, password) {
     if (!email || !password) {
       throw new Error('Email and password are required.');
     }
 
-    // Check if user exists
-    const user = await User.findOne({ email });
+    // Normalize email to match stored format
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Check if user exists (ensure password is selected for comparison)
+    const user = await User.findOne({ email: normalizedEmail }).select('password emailVerified authProvider firstName lastName fullName email');
     if (!user) {
+      throw new Error('Invalid email or password.');
+    }
+
+    // Check if user is a Google OAuth user (they can't login with password)
+    if (user.authProvider === 'google') {
+      throw new Error('This account was created with Google. Please use Google login instead. Click "Login with Google" button.');
+    }
+
+    // Check if user has a password (local users should have passwords)
+    if (!user.password) {
       throw new Error('Invalid email or password.');
     }
 
@@ -106,7 +141,7 @@ class AuthService {
     return {
       token,
       user: {
-        id: user._id,
+        _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         fullName: user.fullName,
@@ -302,6 +337,23 @@ class AuthService {
     );
 
     return { token };
+  }
+
+  // Check if user can login with password
+  canLoginWithPassword(user) {
+    if (!user) return false;
+    if (user.authProvider === 'google') return false;
+    if (!user.password) return false;
+    if (!user.emailVerified) return false;
+    return true;
+  }
+
+  // Get login method for user
+  getLoginMethod(user) {
+    if (!user) return 'unknown';
+    if (user.authProvider === 'google') return 'google';
+    if (user.authProvider === 'local') return 'password';
+    return 'unknown';
   }
 
   // Get Google OAuth status

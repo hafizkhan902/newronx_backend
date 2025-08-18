@@ -141,16 +141,18 @@ export const errorHandler = (error, req, res, next) => {
     });
   }
 
-  // Send error response
-  res.status(statusCode).json({
-    success: false,
-    message,
-    errors,
-    ...(process.env.NODE_ENV === 'development' && {
-      stack: error.stack,
-      name: error.name
-    })
-  });
+  // Send error response with FRONTEND COMPATIBILITY
+  // Frontend expects: { message: "...", errors: [...] }
+  const response = { message };
+  if (errors && errors.length > 0) response.errors = errors;
+  
+  // Add development info if needed
+  if (process.env.NODE_ENV === 'development') {
+    response.stack = error.stack;
+    response.name = error.name;
+  }
+  
+  res.status(statusCode).json(response);
 };
 
 // Async error wrapper
