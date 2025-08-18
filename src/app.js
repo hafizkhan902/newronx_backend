@@ -24,6 +24,12 @@ import notificationRoutes from './routes/notification.routes.js';
 
 const app = express();
 
+// Trust proxy (safely) for correct client IP detection
+// Use a non-permissive value to satisfy express-rate-limit validation
+// - In production, trust the first proxy hop (e.g., nginx/Heroku/Cloudflare)
+// - In development, trust only loopback addresses
+app.set('trust proxy', process.env.NODE_ENV === 'production' ? 1 : 'loopback');
+
 // Validate configuration
 try {
   validateConfig();

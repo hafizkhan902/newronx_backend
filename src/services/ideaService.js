@@ -14,6 +14,126 @@ class IdeaService {
     });
   }
 
+  // Normalize incoming payload to maintain backward compatibility with older frontends
+  normalizeIdeaInput(rawData) {
+    // If client sent a JSON string in a single field (e.g., "data" or "idea"), parse it
+    let data = { ...rawData };
+    try {
+      if (typeof rawData?.data === 'string') {
+        data = { ...data, ...JSON.parse(rawData.data) };
+      }
+    } catch {}
+    try {
+      if (typeof rawData?.idea === 'string') {
+        data = { ...data, ...JSON.parse(rawData.idea) };
+      }
+    } catch {}
+
+    // Map alternative field names
+    const title =
+      data.title ||
+      data.tittle ||
+      data.ideaTitle ||
+      data.name ||
+      data.heading ||
+      '';
+
+    const description =
+      data.description ||
+      data.content ||
+      data.details ||
+      data.ideaDescription ||
+      '';
+
+    const category =
+      data.category ||
+      data.categoryName ||
+      data.type ||
+      'general';
+
+    // Tags may arrive as array, comma-separated string, or JSON string
+    let tags = data.tags ?? data.tagList ?? data.tag;
+    if (typeof tags === 'string') {
+      // Try parse JSON array first
+      try {
+        const parsed = JSON.parse(tags);
+        if (Array.isArray(parsed)) {
+          tags = parsed;
+        } else {
+          tags = tags.split(',');
+        }
+      } catch {
+        tags = tags.split(',');
+      }
+    }
+    if (Array.isArray(tags)) {
+      tags = tags.map((t) => (typeof t === 'string' ? t.trim() : t)).filter(Boolean);
+    } else if (!tags) {
+      tags = [];
+    }
+
+    // Additional descriptive fields (legacy aliases supported)
+    const targetAudience = (data.targetAudience || data.audience || data.target || '').toString().trim();
+    const marketAlternatives = (data.marketAlternatives || data.alternatives || '').toString().trim();
+    const problemStatement = (data.problemStatement || data.problem || '').toString().trim();
+    const uniqueValue = (data.uniqueValue || data.uvp || data.uniqueSellingPoint || '').toString().trim();
+    let neededRoles = data.neededRoles ?? data.roles ?? data.role;
+    if (typeof neededRoles === 'string') {
+      try {
+        const parsed = JSON.parse(neededRoles);
+        neededRoles = Array.isArray(parsed) ? parsed : neededRoles.split(',');
+      } catch {
+        neededRoles = neededRoles.split(',');
+      }
+    }
+    if (Array.isArray(neededRoles)) {
+      neededRoles = neededRoles.map(r => (typeof r === 'string' ? r.trim() : r)).filter(Boolean);
+    } else if (!neededRoles) {
+      neededRoles = [];
+    }
+    const pitch = (data.pitch || data.elevatorPitch || '').toString().trim();
+
+    // Booleans may arrive as strings
+    const toBool = (v, fallback) => {
+      if (typeof v === 'boolean') return v;
+      if (typeof v === 'string') return v.toLowerCase() === 'true';
+      if (v === 0 || v === 1) return Boolean(v);
+      return fallback;
+    };
+
+    const isPublic = toBool(data.isPublic ?? data.public ?? data.privacy === 'public', true);
+    const allowComments = toBool(data.allowComments ?? data.commentsAllowed, true);
+    const allowSharing = toBool(data.allowSharing ?? data.sharingAllowed, true);
+
+    // Normalize privacy to model enum: 'Public' | 'Team' | 'Private'
+    let privacy = data.privacy || (isPublic ? 'Public' : 'Private');
+    if (typeof privacy === 'string') {
+      const p = privacy.toLowerCase();
+      if (p === 'public') privacy = 'Public';
+      else if (p === 'team' || p === 'team-only') privacy = 'Team';
+      else privacy = 'Private';
+    } else {
+      privacy = isPublic ? 'Public' : 'Private';
+    }
+
+    return {
+      title: String(title).trim(),
+      description: String(description).trim(),
+      category: String(category).trim() || 'general',
+      tags,
+      isPublic,
+      allowComments,
+      allowSharing,
+      privacy,
+      targetAudience,
+      marketAlternatives,
+      problemStatement,
+      uniqueValue,
+      neededRoles,
+      pitch
+    };
+  }
+
   // Helper method to get user from token
   async getUserFromToken(token) {
     try {
@@ -31,10 +151,12 @@ class IdeaService {
       throw new Error('User not found');
     }
 
-    const { title, description, category, tags, isPublic, allowComments, allowSharing } = ideaData;
+    // Normalize payload to be compatible with legacy frontends
+    const normalized = this.normalizeIdeaInput(ideaData);
+    const { title, description, category, tags, privacy, targetAudience, marketAlternatives, problemStatement, uniqueValue, neededRoles, pitch } = normalized;
 
-    // Validate required fields
-    if (!title || !description || !category) {
+    // Validate required fields (category now defaults to 'general')
+    if (!title || !description) {
       throw new Error('Title, description, and category are required');
     }
 
@@ -61,18 +183,31 @@ class IdeaService {
       }
     }
 
-    // Create idea
+    // Create idea mapped to current schema
     const idea = new Idea({
       title,
       description,
-      category,
-      tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-      image: imageUrl,
+      privacy,
       author: user._id,
-      isPublic: isPublic === 'true',
-      allowComments: allowComments !== 'false',
-      allowSharing: allowSharing !== 'false'
+      tags: Array.isArray(tags) ? tags : [],
+      targetAudience,
+      marketAlternatives,
+      problemStatement,
+      uniqueValue,
+      neededRoles,
+      pitch
     });
+
+    // Attach image to images array if present
+    if (imageUrl) {
+      idea.images = idea.images || [];
+      idea.images.push({ url: imageUrl, contentType: file?.mimetype, size: file?.size });
+    }
+
+    // If frontend still sends a category, add it as a tag for discoverability
+    if (category) {
+      if (!idea.tags.includes(category)) idea.tags.push(category);
+    }
 
     await idea.save();
 
@@ -86,11 +221,12 @@ class IdeaService {
   async getAllIdeas(filters) {
     const { page, limit, category, search, sortBy, sortOrder } = filters;
     
-    // Build query
-    const query = { isPublic: true };
+    // Build query using privacy enum (Public | Team | Private)
+    const query = { privacy: 'Public' };
     
     if (category) {
-      query.category = category;
+      // Legacy support: we store category as a tag for discoverability
+      query.tags = { $in: [category] };
     }
     
     if (search) {
