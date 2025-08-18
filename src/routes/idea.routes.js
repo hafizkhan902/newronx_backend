@@ -32,6 +32,8 @@ const upload = multer({
 
 // Public routes (no authentication required)
 router.get('/', ideaController.getAllIdeas);
+// Legacy feed endpoint for frontend compatibility
+router.get('/feed', ideaController.getFeed);
 router.get('/trending', ideaController.getTrendingIdeas);
 router.get('/category/:category', ideaController.getIdeasByCategory);
 router.get('/search', ideaController.searchIdeas);

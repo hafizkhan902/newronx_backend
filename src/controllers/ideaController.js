@@ -7,6 +7,19 @@ class IdeaController extends BaseController {
     this.ideaService = new IdeaService();
   }
 
+  // Feed (legacy compatibility): return plain ideas array
+  getFeed = this.asyncHandler(async (req, res) => {
+    const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = req.query;
+    const result = await this.ideaService.getAllIdeas({
+      page: parseInt(page),
+      limit: parseInt(limit),
+      sortBy,
+      sortOrder
+    });
+    // Return only the array to match legacy frontend expectations
+    return res.status(200).json(result.ideas || []);
+  });
+
   // Create new idea
   createIdea = this.asyncHandler(async (req, res) => {
     const token = req.cookies.token;
@@ -207,11 +220,18 @@ class IdeaController extends BaseController {
   // Search ideas
   searchIdeas = this.asyncHandler(async (req, res) => {
     const { q, category, tags, page = 1, limit = 10 } = req.query;
-    
+
+    // If no filters provided, return latest public ideas instead of 400
     if (!q && !category && !tags) {
-      return this.sendBadRequest(res, 'Search query, category, or tags are required');
+      const result = await this.ideaService.getAllIdeas({
+        page: parseInt(page),
+        limit: parseInt(limit),
+        sortBy: 'createdAt',
+        sortOrder: 'desc'
+      });
+      return this.sendSuccess(res, result, 'Ideas retrieved successfully.');
     }
-    
+
     const result = await this.ideaService.searchIdeas({
       query: q,
       category,
@@ -219,7 +239,7 @@ class IdeaController extends BaseController {
       page: parseInt(page),
       limit: parseInt(limit)
     });
-    
+
     this.sendSuccess(res, result, 'Search results retrieved successfully.');
   });
 
