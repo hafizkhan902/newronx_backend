@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
+import Joi from 'joi';
 import authController from '../controllers/authController.js';
 import { validateBody } from '../middleware/validation.js';
 import { 
@@ -15,6 +16,9 @@ const router = Router();
 
 // POST /api/auth/register - Step 1: Create unverified user and send OTP
 router.post('/register', validateBody(registerSchema), authController.register);
+
+// POST /api/auth/check-account-type - Check account type before login
+router.post('/check-account-type', validateBody(Joi.object({ email: Joi.string().email().required() })), authController.checkAccountType);
 
 // POST /api/auth/login
 router.post('/login', validateBody(loginSchema), authController.login);

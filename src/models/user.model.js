@@ -428,7 +428,8 @@ userSchema.pre('find', function() {
 userSchema.pre('findOne', function() {
   // Add default projection for better performance
   if (!this._mongooseOptions.projection) {
-    this.select('-password -emailVerificationOTP -__v');
+    // Do not exclude emailVerificationOTP; needed for OTP verification flow
+    this.select('-password -__v');
   }
 });
 

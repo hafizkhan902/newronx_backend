@@ -11,6 +11,75 @@ export class ResponseService {
     });
   }
 
+  // COMPATIBILITY METHODS - Maintain old frontend format
+  static async legacySuccess(res, data = null, message = 'Success', statusCode = 200) {
+    // Check if frontend compatibility is enabled
+    const { config } = await import('../config/index.js');
+    if (!config.frontend.compatibility.enabled) {
+      return this.success(res, data, message, statusCode);
+    }
+    
+    // If data contains user and token, format for frontend compatibility
+    if (data && typeof data === 'object') {
+      if (data.user && data.token) {
+        // Frontend expects: { user: {...}, token: "...", message: "..." }
+        return res.status(statusCode).json({
+          user: data.user,
+          token: data.token,
+          message: message
+        });
+      } else if (data.token) {
+        // Frontend expects: { token: "...", message: "..." }
+        return res.status(statusCode).json({
+          token: data.token,
+          message: message,
+          ...data
+        });
+      }
+    }
+    
+    // Fallback to new format
+    return this.success(res, data, message, statusCode);
+  }
+
+  static legacyAuthSuccess(res, user, token, message = 'Authentication successful') {
+    // Frontend expects: { user: {...}, token: "...", message: "..." }
+    return res.status(200).json({
+      user: {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        fullName: user.fullName,
+        email: user.email,
+        isEmailVerified: user.emailVerified,
+        isAdmin: user.isAdmin,
+        isInvestor: user.isInvestor,
+        isMentor: user.isMentor,
+        profilePicture: user.avatar,
+        status: user.status
+      },
+      token,
+      message
+    });
+  }
+
+  static legacyError(res, message = 'Error occurred', statusCode = 500, errors = null) {
+    // Frontend expects: { message: "...", errors: [...] }
+    const response = { message };
+    if (errors) response.errors = errors;
+    return res.status(statusCode).json(response);
+  }
+
+  // Legacy register success: return top-level userId and email
+  static legacyRegisterSuccess(res, data = {}, message = 'Registration successful', statusCode = 201) {
+    const { userId, email } = data || {};
+    return res.status(statusCode).json({
+      userId: userId || null,
+      email: email || null,
+      message
+    });
+  }
+
   static created(res, data = null, message = 'Resource created successfully') {
     return this.success(res, data, message, 201);
   }

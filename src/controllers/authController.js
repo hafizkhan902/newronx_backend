@@ -1,5 +1,6 @@
 import BaseController from './baseController.js';
 import AuthService from '../services/authService.js';
+import { ResponseService } from '../services/responseService.js';
 
 class AuthController extends BaseController {
   constructor() {
@@ -15,7 +16,23 @@ class AuthController extends BaseController {
       firstName, lastName, fullName, email, phone, password, confirmPassword
     });
     
-    this.sendSuccess(res, result, 'Registration initiated. Please check your email for verification code.', 201);
+    // Use legacy format for frontend compatibility
+    // Ensure top-level userId and email are returned as frontend expects
+    ResponseService.legacyRegisterSuccess(
+      res,
+      { userId: result?.userId, email: result?.email },
+      'Registration initiated. Please check your email for verification code.',
+      201
+    );
+  });
+
+  // Check account type before login
+  checkAccountType = this.asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    
+    const result = await this.authService.checkAccountType(email);
+    
+    this.sendSuccess(res, result, 'Account type checked successfully.');
   });
 
   // User login
@@ -32,7 +49,8 @@ class AuthController extends BaseController {
       maxAge: 60 * 60 * 1000 // 1 hour
     });
     
-    this.sendSuccess(res, result.user, 'Login successful.');
+    // Use legacy format for frontend compatibility
+    ResponseService.legacyAuthSuccess(res, result.user, result.token, 'Login successful.');
   });
 
   // User logout

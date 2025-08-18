@@ -158,6 +158,15 @@ export const config = {
     etag: process.env.ENABLE_ETAG !== 'false',
     maxRequestBodySize: process.env.MAX_REQUEST_BODY_SIZE || '10mb',
     timeout: parseInt(process.env.REQUEST_TIMEOUT) || 30000
+  },
+
+  // Frontend compatibility settings
+  frontend: {
+    compatibility: {
+      enabled: process.env.FRONTEND_COMPATIBILITY !== 'false', // Default: true
+      legacyResponseFormat: process.env.LEGACY_RESPONSE_FORMAT !== 'false', // Default: true
+      legacyErrorFormat: process.env.LEGACY_ERROR_FORMAT !== 'false', // Default: true
+    }
   }
 };
 
