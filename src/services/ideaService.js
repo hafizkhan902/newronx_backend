@@ -512,6 +512,72 @@ class IdeaService {
     await idea.save();
   }
 
+  // Submit an approach/proposal to an idea with desired role
+  async approachIdea(token, ideaId, role, description) {
+    const user = await this.getUserFromToken(token);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const idea = await Idea.findById(ideaId);
+    if (!idea) {
+      throw new Error('Idea not found');
+    }
+
+    // Prevent author from approaching their own idea
+    if (idea.author.toString() === user._id.toString()) {
+      throw new Error('You cannot approach your own idea');
+    }
+
+    const normalizedRole = (role || '').toString().trim();
+    const normalizedDescription = (description || '').toString().trim();
+
+    if (!normalizedRole) {
+      throw new Error('Desired role is required');
+    }
+    if (!normalizedDescription) {
+      throw new Error('Please include a brief description');
+    }
+
+    // Optional: prevent duplicate approach with same role by same user
+    const alreadyApproached = (idea.approaches || []).some(a =>
+      a.user && a.user.toString() === user._id.toString() && a.role === normalizedRole
+    );
+    if (alreadyApproached) {
+      throw new Error('You have already approached this idea for the same role');
+    }
+
+    idea.approaches = idea.approaches || [];
+    idea.approaches.push({
+      user: user._id,
+      role: normalizedRole,
+      description: normalizedDescription,
+      createdAt: new Date()
+    });
+
+    await idea.save();
+
+    // Populate the last approach's user info
+    await idea.populate('approaches.user', 'firstName fullName avatar');
+    const created = idea.approaches[idea.approaches.length - 1];
+
+    // Sanitize for frontend (convert ObjectIds to strings)
+    const response = {
+      _id: created._id ? created._id.toString() : undefined,
+      user: created.user ? {
+        _id: created.user._id ? created.user._id.toString() : undefined,
+        firstName: created.user.firstName,
+        fullName: created.user.fullName,
+        avatar: created.user.avatar
+      } : undefined,
+      role: created.role,
+      description: created.description,
+      createdAt: created.createdAt
+    };
+
+    return response;
+  }
+
   // Share idea
   async shareIdea(token, ideaId, platform, message) {
     const user = await this.getUserFromToken(token);
