@@ -52,6 +52,10 @@ router.delete('/:id/like', ideaController.unlikeIdea);
 router.post('/:id/comments', ideaController.commentOnIdea);
 router.delete('/:id/comments/:commentId', ideaController.deleteComment);
 router.post('/:id/share', ideaController.shareIdea);
+// Submit approach/proposal
+router.post('/:id/approach', ideaController.approachIdea);
+// Legacy alias for frontends using "/propose"
+router.post('/:id/propose', ideaController.approachIdea);
 
 // User-specific routes
 router.get('/user/me', ideaController.getUserIdeas);

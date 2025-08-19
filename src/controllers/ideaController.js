@@ -173,6 +173,25 @@ class IdeaController extends BaseController {
     this.sendSuccess(res, result, 'Idea shared successfully.');
   });
 
+  // Approach idea (submit desired role and description)
+  approachIdea = this.asyncHandler(async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+      return this.sendUnauthorized(res, 'Please login to approach this idea');
+    }
+
+    const { id } = req.params;
+    const { role, description } = req.body;
+
+    const result = await this.ideaService.approachIdea(token, id, role, description);
+
+    // Legacy/Frontend-friendly response
+    return res.status(201).json({
+      message: 'Approach submitted successfully',
+      approach: result
+    });
+  });
+
   // Get user's ideas
   getUserIdeas = this.asyncHandler(async (req, res) => {
     const token = req.cookies.token;
