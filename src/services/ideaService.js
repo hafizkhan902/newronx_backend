@@ -485,6 +485,72 @@ class IdeaService {
     };
   }
 
+  // Get approaches for a specific idea
+  async getApproaches(ideaId) {
+    const idea = await Idea.findById(ideaId)
+      .select('approaches title')
+      .populate('approaches.user', 'firstName fullName avatar')
+      .lean();
+
+    if (!idea) return null;
+
+    const approaches = (idea.approaches || []).map((a) => ({
+      _id: a._id?.toString(),
+      user: a.user
+        ? {
+            _id: a.user._id?.toString(),
+            firstName: a.user.firstName,
+            fullName: a.user.fullName,
+            avatar: a.user.avatar,
+          }
+        : undefined,
+      role: a.role,
+      description: a.description,
+      createdAt: a.createdAt,
+    }));
+
+    return { ideaId: idea._id?.toString(), title: idea.title, approaches };
+  }
+
+  // Get all incoming approaches for ideas authored by current user
+  async getIncomingApproaches(token) {
+    const user = await this.getUserFromToken(token);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const ideas = await Idea.find({ author: user._id })
+      .select('title approaches')
+      .populate('approaches.user', 'firstName fullName avatar')
+      .lean();
+
+    const items = [];
+    for (const idea of ideas) {
+      for (const a of idea.approaches || []) {
+        items.push({
+          ideaId: idea._id?.toString(),
+          ideaTitle: idea.title,
+          _id: a._id?.toString(),
+          user: a.user
+            ? {
+                _id: a.user._id?.toString(),
+                firstName: a.user.firstName,
+                fullName: a.user.fullName,
+                avatar: a.user.avatar,
+              }
+            : undefined,
+          role: a.role,
+          description: a.description,
+          createdAt: a.createdAt,
+        });
+      }
+    }
+
+    // Sort newest first
+    items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return items;
+  }
+
   // Delete comment
   async deleteComment(token, ideaId, commentId) {
     const user = await this.getUserFromToken(token);

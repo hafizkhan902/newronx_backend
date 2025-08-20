@@ -72,7 +72,23 @@ router.get('/profile', authenticateToken, userController.getProfile);
 router.put('/profile', authenticateToken, validateBody(updateProfileSchema), userController.updateProfile);
 
 // Avatar Management
-router.post('/profile/avatar', authenticateToken, upload.single('avatar'), validateFile(['image/jpeg', 'image/png', 'image/gif']), userController.uploadAvatar);
+// Accept any common image field name and formats (jpeg/png/gif/webp)
+const pickImageFile = (req, res, next) => {
+  if (!req.file && Array.isArray(req.files)) {
+    const img = req.files.find(f => f.mimetype && f.mimetype.startsWith('image/'));
+    if (img) req.file = img;
+  }
+  next();
+};
+
+router.post(
+  '/profile/avatar',
+  authenticateToken,
+  upload.any(),
+  pickImageFile,
+  validateFile(['image/jpeg', 'image/png', 'image/gif', 'image/webp']),
+  userController.uploadAvatar
+);
 router.get('/profile/avatar', authenticateToken, userController.getAvatar);
 router.get('/profile/avatar/:id', userController.getPublicAvatar);
 

@@ -28,30 +28,127 @@ class UserService {
 
   // Get user profile by token
   async getProfileByToken(token) {
-    const user = await this.getUserFromToken(token);
-    if (!user) {
-      throw new Error('User not found');
+    // Always read fresh from DB with proper projection to avoid stale/cached data
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const fresh = await User.findById(decoded.userId)
+        .select('-password -__v')
+        .lean();
+      if (!fresh) {
+        throw new Error('User not found');
+      }
+      return fresh;
+    } catch (err) {
+      throw new Error('Invalid or expired token');
     }
-    return user.select('-password');
   }
 
   // Update user profile
   async updateProfile(token, updateData) {
+    console.log('[UserService] updateProfile called with data:', JSON.stringify(updateData, null, 2));
+    
     const user = await this.getUserFromToken(token);
     if (!user) {
       throw new Error('User not found');
     }
 
-    // Only update allowed fields
-    const allowedFields = ['firstName', 'fullName', 'phone', 'bio', 'avatar', 'address', 'skills', 'socialLinks', 'interestedRoles', 'resume', 'status'];
+    // Normalize legacy field names
+    const normalized = { ...updateData };
+    console.log('[UserService] Starting normalization...');
+    
+    if (normalized.name && !normalized.fullName) normalized.fullName = normalized.name;
+    if (typeof normalized.skills === 'string') {
+      try { const arr = JSON.parse(normalized.skills); if (Array.isArray(arr)) normalized.skills = arr; else normalized.skills = normalized.skills.split(','); }
+      catch { normalized.skills = normalized.skills.split(','); }
+      normalized.skills = normalized.skills.map(s => (typeof s === 'string' ? s.trim() : s)).filter(Boolean);
+    }
+    if (typeof normalized.lastName === 'string') {
+      normalized.lastName = normalized.lastName.trim();
+    }
+    if (typeof normalized.interestedRoles === 'string') {
+      try { const arr = JSON.parse(normalized.interestedRoles); if (Array.isArray(arr)) normalized.interestedRoles = arr; else normalized.interestedRoles = normalized.interestedRoles.split(','); }
+      catch { normalized.interestedRoles = normalized.interestedRoles.split(','); }
+      normalized.interestedRoles = normalized.interestedRoles.map(r => (typeof r === 'string' ? r.trim() : r)).filter(Boolean);
+    }
+    if (typeof normalized.education === 'string') {
+      try { const arr = JSON.parse(normalized.education); if (Array.isArray(arr)) normalized.education = arr; else normalized.education = normalized.education.split(','); }
+      catch { normalized.education = normalized.education.split(','); }
+      normalized.education = normalized.education.map(e => (typeof e === 'string' ? e.trim() : e)).filter(Boolean);
+    }
+
+    // Normalize socialLinks: accept array of {type,value} OR object map { key: url } OR empty string to clear
+    if (normalized.socialLinks !== undefined) {
+      console.log('[UserService] Processing socialLinks:', JSON.stringify(normalized.socialLinks, null, 2));
+      if (normalized.socialLinks === '' || normalized.socialLinks === null) {
+        normalized.socialLinks = [];
+        console.log('[UserService] socialLinks converted to empty array');
+      } else if (!Array.isArray(normalized.socialLinks) && typeof normalized.socialLinks === 'object') {
+        normalized.socialLinks = Object.entries(normalized.socialLinks)
+          .filter(([, v]) => !!v)
+          .map(([k, v]) => ({ type: k, value: v }));
+        console.log('[UserService] socialLinks converted to array format:', JSON.stringify(normalized.socialLinks, null, 2));
+      }
+    }
+
+    // Handle resume field - allow clearing
+    if (normalized.resume !== undefined) {
+      console.log('[UserService] Processing resume:', normalized.resume);
+      if (normalized.resume === '' || normalized.resume === null) {
+        normalized.resume = undefined; // Remove resume
+        console.log('[UserService] resume converted to undefined');
+      }
+    }
+
+    // Handle interestedRoles - allow clearing
+    if (normalized.interestedRoles !== undefined) {
+      console.log('[UserService] Processing interestedRoles:', JSON.stringify(normalized.interestedRoles, null, 2));
+      if (normalized.interestedRoles === '' || normalized.interestedRoles === null) {
+        normalized.interestedRoles = [];
+        console.log('[UserService] interestedRoles converted to empty array');
+      }
+    }
+
+    console.log('[UserService] Final normalized data:', JSON.stringify(normalized, null, 2));
+
+    // Only update allowed fields (as per frontend spec)
+    const allowedFields = [
+      'firstName',
+      'lastName',
+      'fullName',
+      'phone',
+      'avatar',
+      'bio',
+      'address',
+      'city',
+      'state',
+      'country',
+      'zipCode',
+      'skills',
+      'education',
+      'company',
+      'position',
+      'experience',
+      'status',
+      'socialLinks',
+      'interestedRoles',
+      'resume'
+    ];
     allowedFields.forEach(field => {
-      if (updateData[field] !== undefined) {
-        user[field] = updateData[field];
+      if (normalized[field] !== undefined) {
+        user[field] = normalized[field];
+        console.log(`[UserService] Updated field ${field}:`, JSON.stringify(normalized[field], null, 2));
       }
     });
 
+    console.log('[UserService] Saving user to database...');
     await user.save();
-    return user.toObject({ getters: true, virtuals: false });
+    console.log('[UserService] User saved successfully');
+    
+    // Return legacy-friendly object
+    const obj = user.toObject({ getters: true, virtuals: false });
+    delete obj.password;
+    console.log('[UserService] Returning updated user data');
+    return obj;
   }
 
   // Upload avatar to Cloudinary
@@ -65,16 +162,12 @@ class UserService {
     const filePath = file.path;
 
     try {
-      const timestamp = Math.floor(Date.now() / 1000);
-      const signature = this.generateSignature(userId, timestamp);
-
       // Upload to Cloudinary
       const uploadResult = await cloudinary.uploader.upload(filePath, {
         folder: 'avatars',
-        public_id: userId,
-        timestamp: timestamp,
-        signature: signature,
-        api_key: '556186415216556'
+        public_id: `avatar_${userId}`,
+        overwrite: true,
+        transformation: [{ width: 512, height: 512, crop: 'fill', gravity: 'auto' }]
       });
 
       // Store only the Cloudinary URL
@@ -235,7 +328,21 @@ class UserService {
       throw new Error('User not found');
     }
 
-    const { isInvestor, isMentor, company, position, experience, investmentFocus, mentorshipAreas } = roleData;
+    const { isInvestor, isMentor, company, position, experience } = roleData;
+
+    // Normalize arrays (accept array, comma string or JSON string)
+    let investmentFocus = roleData.investmentFocus;
+    if (typeof investmentFocus === 'string') {
+      try { const arr = JSON.parse(investmentFocus); investmentFocus = Array.isArray(arr) ? arr : investmentFocus.split(','); }
+      catch { investmentFocus = investmentFocus.split(','); }
+      investmentFocus = investmentFocus.map(v => (typeof v === 'string' ? v.trim() : v)).filter(Boolean);
+    }
+    let mentorshipAreas = roleData.mentorshipAreas;
+    if (typeof mentorshipAreas === 'string') {
+      try { const arr = JSON.parse(mentorshipAreas); mentorshipAreas = Array.isArray(arr) ? arr : mentorshipAreas.split(','); }
+      catch { mentorshipAreas = mentorshipAreas.split(','); }
+      mentorshipAreas = mentorshipAreas.map(v => (typeof v === 'string' ? v.trim() : v)).filter(Boolean);
+    }
 
     // Update role flags
     if (typeof isInvestor === 'boolean') {

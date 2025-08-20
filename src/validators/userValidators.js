@@ -34,30 +34,35 @@ export const updateProfileSchema = Joi.object({
   
   address: Joi.string()
     .max(200)
+    .allow('')  // Allow empty strings
     .messages({
       'string.max': 'Address cannot exceed 200 characters'
     }),
   
   city: Joi.string()
     .max(100)
+    .allow('')  // Allow empty strings
     .messages({
       'string.max': 'City cannot exceed 100 characters'
     }),
   
   state: Joi.string()
     .max(100)
+    .allow('')  // Allow empty strings
     .messages({
       'string.max': 'State cannot exceed 100 characters'
     }),
   
   country: Joi.string()
     .max(100)
+    .allow('')  // Allow empty strings
     .messages({
       'string.max': 'Country cannot exceed 100 characters'
     }),
   
   zipCode: Joi.string()
     .max(20)
+    .allow('')  // Allow empty strings
     .messages({
       'string.max': 'Zip code cannot exceed 20 characters'
     }),
@@ -70,26 +75,32 @@ export const updateProfileSchema = Joi.object({
       'string.max': 'Each skill cannot exceed 50 characters'
     }),
   
-  socialLinks: Joi.array()
-    .items(Joi.object({
+  socialLinks: Joi.alternatives().try(
+    Joi.array().items(Joi.object({
       type: Joi.string().valid('linkedin', 'twitter', 'github', 'website', 'other').required(),
       value: Joi.string().uri().required()
-    }))
-    .max(10)
+    })).max(10),
+    Joi.object().pattern(Joi.string(), Joi.string().uri()),
+    Joi.string().allow(''),
+    Joi.allow(null)
+  )
     .messages({
-      'array.max': 'Cannot have more than 10 social links',
       'object.unknown': 'Invalid social link format'
     }),
-  
-  interestedRoles: Joi.array()
-    .items(Joi.string().valid('developer', 'designer', 'marketer', 'investor', 'mentor', 'other'))
-    .max(10)
+
+  interestedRoles: Joi.alternatives().try(
+    Joi.array().items(Joi.string().valid('developer', 'designer', 'marketer', 'investor', 'mentor', 'other')).max(10),
+    Joi.string().allow(''),
+    Joi.string().pattern(/^[a-zA-Z\s,]+$/),
+    Joi.allow(null)
+  )
     .messages({
-      'array.max': 'Cannot have more than 10 interested roles'
+      'string.pattern': 'Invalid role format'
     }),
   
   resume: Joi.string()
     .uri()
+    .allow('', null)
     .messages({
       'string.uri': 'Please provide a valid resume URL'
     }),
@@ -103,48 +114,33 @@ export const updateProfileSchema = Joi.object({
 
 // Update roles validation
 export const updateRolesSchema = Joi.object({
-  isInvestor: Joi.boolean()
-    .messages({
-      'boolean.base': 'isInvestor must be a boolean value'
-    }),
-  
-  isMentor: Joi.boolean()
-    .messages({
-      'boolean.base': 'isMentor must be a boolean value'
-    }),
-  
-  company: Joi.string()
-    .max(100)
-    .messages({
-      'string.max': 'Company name cannot exceed 100 characters'
-    }),
-  
-  position: Joi.string()
-    .max(100)
-    .messages({
-      'string.max': 'Position cannot exceed 100 characters'
-    }),
-  
-  experience: Joi.string()
-    .valid('entry', 'junior', 'mid', 'senior', 'expert', 'executive')
-    .messages({
-      'any.only': 'Experience must be one of: entry, junior, mid, senior, expert, executive'
-    }),
-  
-  investmentFocus: Joi.array()
-    .items(Joi.string().valid('tech', 'healthcare', 'finance', 'education', 'real-estate', 'other'))
-    .max(10)
-    .messages({
-      'array.max': 'Cannot have more than 10 investment focus areas'
-    }),
-  
-  mentorshipAreas: Joi.array()
-    .items(Joi.string().valid('business', 'technology', 'marketing', 'finance', 'leadership', 'other'))
-    .max(10)
-    .messages({
-      'array.max': 'Cannot have more than 10 mentorship areas'
-    })
-});
+  // Accept booleans and common truthy/falsy strings
+  isInvestor: Joi.boolean().truthy('true', '1', 'yes', 'on').falsy('false', '0', 'no', 'off')
+    .messages({ 'boolean.base': 'isInvestor must be a boolean value' }),
+
+  isMentor: Joi.boolean().truthy('true', '1', 'yes', 'on').falsy('false', '0', 'no', 'off')
+    .messages({ 'boolean.base': 'isMentor must be a boolean value' }),
+
+  company: Joi.string().max(100)
+    .messages({ 'string.max': 'Company name cannot exceed 100 characters' }),
+
+  position: Joi.string().max(100)
+    .messages({ 'string.max': 'Position cannot exceed 100 characters' }),
+
+  // Allow any string for experience to avoid 400s from legacy UIs
+  experience: Joi.string().max(50),
+
+  // Accept arrays or comma/JSON strings; normalize in service
+  investmentFocus: Joi.alternatives().try(
+    Joi.array().items(Joi.string().max(50)).max(20),
+    Joi.string()
+  ),
+
+  mentorshipAreas: Joi.alternatives().try(
+    Joi.array().items(Joi.string().max(50)).max(20),
+    Joi.string()
+  )
+}).unknown(true);
 
 // Update privacy validation
 export const updatePrivacySchema = Joi.object({
