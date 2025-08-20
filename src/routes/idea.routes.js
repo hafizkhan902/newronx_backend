@@ -57,6 +57,11 @@ router.post('/:id/approach', ideaController.approachIdea);
 // Legacy alias for frontends using "/propose"
 router.post('/:id/propose', ideaController.approachIdea);
 
+// View approaches for an idea
+router.get('/:id/approaches', ideaController.getApproaches);
+// View all incoming approaches to current user's ideas
+router.get('/incoming/approaches', ideaController.getIncomingApproaches);
+
 // User-specific routes
 router.get('/user/me', ideaController.getUserIdeas);
 router.get('/:id/insights', ideaController.getIdeaInsights);

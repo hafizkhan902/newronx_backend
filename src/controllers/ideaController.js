@@ -144,6 +144,27 @@ class IdeaController extends BaseController {
     this.sendSuccess(res, result, 'Comments retrieved successfully.');
   });
 
+  // Get approaches for an idea
+  getApproaches = this.asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const result = await this.ideaService.getApproaches(id);
+    if (!result) return this.sendNotFound(res, 'Idea not found');
+    // Return legacy-friendly array
+    return res.status(200).json(result.approaches || []);
+  });
+
+  // Get incoming approaches for current user (ideas they authored)
+  getIncomingApproaches = this.asyncHandler(async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+      return this.sendUnauthorized(res, 'Please login to view approaches');
+    }
+
+    const items = await this.ideaService.getIncomingApproaches(token);
+    // Return plain array for frontend
+    return res.status(200).json(items);
+  });
+
   // Delete comment
   deleteComment = this.asyncHandler(async (req, res) => {
     const token = req.cookies.token;

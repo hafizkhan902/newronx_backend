@@ -3,6 +3,8 @@ import Joi from 'joi';
 // Generic validation middleware
 export const validate = (schema, property = 'body') => {
   return (req, res, next) => {
+    console.log(`[Validation] Validating ${property}:`, JSON.stringify(req[property], null, 2));
+    
     const { error, value } = schema.validate(req[property], {
       abortEarly: false,
       stripUnknown: true,
@@ -10,6 +12,9 @@ export const validate = (schema, property = 'body') => {
     });
 
     if (error) {
+      console.log(`[Validation] Validation failed for ${property}:`, error.message);
+      console.log(`[Validation] Error details:`, error.details);
+      
       const errorMessage = error.details
         .map(detail => detail.message)
         .join(', ');
@@ -23,6 +28,9 @@ export const validate = (schema, property = 'body') => {
         }))
       });
     }
+
+    console.log(`[Validation] Validation passed for ${property}`);
+    console.log(`[Validation] Validated data:`, JSON.stringify(value, null, 2));
 
     // Replace request data with validated data
     req[property] = value;
