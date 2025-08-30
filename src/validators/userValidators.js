@@ -303,3 +303,20 @@ export const generateNDASchema = Joi.object({
       'string.max': 'Protection scope cannot exceed 500 characters'
     })
 });
+
+export const updatePasswordSchema = Joi.object({
+  currentPassword: Joi.string()
+    .required()
+    .messages({ 'any.required': 'Current password is required' }),
+
+  newPassword: Joi.string()
+    .min(6)
+    .max(128)
+    .disallow(Joi.ref('currentPassword'))
+    .required()
+    .messages({
+      'string.min': 'New password must be at least 6 characters long',
+      'any.invalid': 'New password must be different from current password',
+      'any.required': 'New password is required'
+    })
+}).unknown(false);

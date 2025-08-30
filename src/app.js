@@ -21,6 +21,7 @@ import chatRoutes from './routes/chat.routes.js';
 import messageRoutes from './routes/message.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
+import aiRoutes from './routes/ai.routes.js';
 
 const app = express();
 
@@ -61,7 +62,7 @@ app.use(helmet({
 
 // Performance optimizations for single-core
 if (config.performance.compression) {
-  app.use(compression()); // Compress responses
+app.use(compression()); // Compress responses
 }
 
 // Always enable compression in production for better performance
@@ -121,7 +122,7 @@ if (config.redis.url && config.redis.url !== 'redis://localhost:6379') {
 if (config.cloudinary.apiSecret) {
   try {
     const { v2: cloudinary } = await import('cloudinary');
-    cloudinary.config({
+    cloudinary.config({ 
       cloud_name: config.cloudinary.cloudName,
       api_key: config.cloudinary.apiKey,
       api_secret: config.cloudinary.apiSecret
@@ -397,6 +398,7 @@ app.use('/api/chats', chatRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/ai', aiRoutes);
 
 // 404 handler for undefined routes
 app.use('*', (req, res) => {

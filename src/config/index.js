@@ -117,6 +117,15 @@ export const config = {
     scope: ['profile', 'email']
   },
 
+  // Google AI (Gemini) configuration
+  googleAI: {
+    apiKey: process.env.GOOGLE_GEMINI_API_KEY || '',
+    model: process.env.GOOGLE_AI_MODEL || 'gemini-1.5-flash',
+    maxTokens: parseInt(process.env.GOOGLE_AI_MAX_TOKENS) || 1000,
+    temperature: parseFloat(process.env.GOOGLE_AI_TEMPERATURE) || 0.7,
+    timeout: parseInt(process.env.GOOGLE_AI_TIMEOUT) || 30000
+  },
+
   // Security configuration
   security: {
     bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS) || 12,
@@ -210,6 +219,7 @@ export const isFeatureEnabled = (featureName) => {
     redis: !!config.redis.url && config.redis.url !== 'redis://localhost:6379',
     cloudinary: !!config.cloudinary.apiSecret,
     googleOAuth: !!config.google.clientId && !!config.google.clientSecret,
+    googleAI: !!config.googleAI.apiKey,
     email: !!config.email.user && !!config.email.pass,
     pushNotifications: !!config.notification.push.vapidPublicKey
   };
