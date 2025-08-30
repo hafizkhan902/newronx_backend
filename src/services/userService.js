@@ -20,7 +20,7 @@ class UserService {
   async getUserFromToken(token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      return await User.findById(decoded.userId);
+      return await User.findById(decoded.userId).select('+password');
     } catch (error) {
       throw new Error('Invalid or expired token');
     }
@@ -151,9 +151,25 @@ class UserService {
     return obj;
   }
 
+  // Helper to resolve user from either JWT token or userId
+  async getUserFromTokenOrId(tokenOrId) {
+    if (!tokenOrId) return null;
+    // If looks like a 24-char hex string, treat as userId
+    const looksLikeId = typeof tokenOrId === 'string' && /^[0-9a-fA-F]{24}$/.test(tokenOrId);
+    try {
+      if (looksLikeId) {
+        return await User.findById(tokenOrId);
+      }
+      const decoded = jwt.verify(tokenOrId, process.env.JWT_SECRET);
+      return await User.findById(decoded.userId);
+    } catch {
+      return null;
+    }
+  }
+
   // Upload avatar to Cloudinary
-  async uploadAvatar(token, file) {
-    const user = await this.getUserFromToken(token);
+  async uploadAvatar(tokenOrId, file) {
+    const user = await this.getUserFromTokenOrId(tokenOrId);
     if (!user) {
       throw new Error('User not found');
     }
@@ -199,8 +215,8 @@ class UserService {
   }
 
   // Get avatar
-  async getAvatar(token) {
-    const user = await this.getUserFromToken(token);
+  async getAvatar(tokenOrId) {
+    const user = await this.getUserFromTokenOrId(tokenOrId);
     if (!user || !user.avatar) {
       return null;
     }
@@ -272,6 +288,11 @@ class UserService {
       throw new Error('Email and current password are required.');
     }
 
+    // Disallow password-based verification for accounts without a password (e.g., Google OAuth)
+    if (!user.password) {
+      throw new Error('This account has no password set (Google sign-in). Use Google login or set a password via account recovery.');
+    }
+
     // Verify current password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
@@ -293,10 +314,22 @@ class UserService {
 
   // Update password
   async updatePassword(token, currentPassword, newPassword) {
+    console.log('[UserService] updatePassword called');
+    console.log('[UserService] currentPassword length:', currentPassword ? currentPassword.length : 'undefined');
+    console.log('[UserService] newPassword length:', newPassword ? newPassword.length : 'undefined');
+    
     const user = await this.getUserFromToken(token);
     if (!user) {
       throw new Error('User not found');
     }
+
+    console.log('[UserService] User found:', {
+      id: user._id,
+      email: user.email,
+      authProvider: user.authProvider,
+      hasPassword: !!user.password,
+      passwordLength: user.password ? user.password.length : 0
+    });
 
     if (!currentPassword || !newPassword) {
       throw new Error('Current password and new password are required.');
@@ -306,12 +339,20 @@ class UserService {
       throw new Error('New password must be at least 6 characters long.');
     }
 
+    // Disallow password change for accounts without a stored password (e.g., Google OAuth)
+    if (!user.password) {
+      console.log('[UserService] No password found for user, throwing error');
+      throw new Error('This account has no password set (Google sign-in). Please use Google login.');
+    }
+
+    console.log('[UserService] Verifying current password...');
     // Verify current password
     const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
     if (!isPasswordValid) {
       throw new Error('Current password is incorrect.');
     }
 
+    console.log('[UserService] Current password verified, hashing new password...');
     // Hash new password
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
@@ -319,6 +360,45 @@ class UserService {
     // Update password
     user.password = hashedPassword;
     await user.save();
+    console.log('[UserService] Password updated successfully');
+  }
+
+  // Update password by userId (uses req.user from middleware)
+  async updatePasswordByUserId(userId, currentPassword, newPassword) {
+    console.log('[UserService] updatePasswordByUserId called', { userId, currentLen: currentPassword ? currentPassword.length : 'undefined', newLen: newPassword ? newPassword.length : 'undefined' });
+    if (!userId) {
+      throw new Error('User not found');
+    }
+    
+    if (!currentPassword || !newPassword) {
+      throw new Error('Current password and new password are required.');
+    }
+
+    if (newPassword.length < 6) {
+      throw new Error('New password must be at least 6 characters long.');
+    }
+
+    const user = await User.findById(userId).select('password authProvider email');
+    console.log('[UserService] updatePasswordByUserId loaded user', { email: user && user.email, authProvider: user && user.authProvider, hasPassword: !!(user && user.password), passwordLen: user && user.password ? user.password.length : 0 });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    if (!user.password) {
+      throw new Error('This account has no password set (Google sign-in). Please use Google login.');
+    }
+
+    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    if (!isPasswordValid) {
+      throw new Error('Current password is incorrect.');
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    user.password = hashedPassword;
+    await user.save();
+    console.log('[UserService] updatePasswordByUserId: password updated');
   }
 
   // Update roles

@@ -12,6 +12,7 @@
     "single-core:dev": "nodemon src/server-single-core.js"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@socket.io/redis-adapter": "^8.2.0",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",

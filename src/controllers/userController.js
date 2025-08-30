@@ -36,15 +36,18 @@ class UserController extends BaseController {
 
   // Upload avatar
   uploadAvatar = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     if (!req.file) {
       return this.sendBadRequest(res, 'No file uploaded.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.uploadAvatar(token, req.file);
     
     this.sendSuccess(res, result, 'Avatar updated successfully.');
@@ -52,11 +55,14 @@ class UserController extends BaseController {
 
   // Get avatar
   getAvatar = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const avatar = await this.userService.getAvatar(token);
     if (!avatar) {
       return this.sendNotFound(res, 'Avatar not found.');
@@ -124,9 +130,15 @@ class UserController extends BaseController {
       return this.sendUnauthorized(res, 'No token, authorization denied.');
     }
 
+    // Use authenticated user attached by middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
     const { currentPassword, newPassword } = req.body;
     
-    await this.userService.updatePassword(token, currentPassword, newPassword);
+    await this.userService.updatePasswordByUserId(userId, currentPassword, newPassword);
     
     this.sendSuccess(res, null, 'Password updated successfully.');
   });

@@ -4,28 +4,40 @@ import User from '../models/user.model.js';
 // Middleware to verify JWT token and attach user to request
 export const authenticateToken = async (req, res, next) => {
   try {
+    console.log('[Auth] authenticateToken called for:', req.method, req.path);
+    console.log('[Auth] Cookies received:', req.cookies);
+    
     const token = req.cookies.token;
+    console.log('[Auth] Token extracted:', token ? `${token.substring(0, 20)}...` : 'undefined');
     
     if (!token) {
+      console.log('[Auth] No token found, returning 401');
       return res.status(401).json({ 
         success: false,
         message: 'No token, authorization denied.' 
       });
     }
 
+    console.log('[Auth] Verifying JWT token...');
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('[Auth] JWT decoded successfully, userId:', decoded.userId);
+    
     const user = await User.findById(decoded.userId);
+    console.log('[Auth] User found:', user ? { id: user._id, email: user.email } : 'null');
     
     if (!user) {
+      console.log('[Auth] User not found in database, returning 401');
       return res.status(401).json({ 
         success: false,
         message: 'User not found.' 
       });
     }
 
+    console.log('[Auth] Setting req.user and calling next()');
     req.user = user;
     next();
   } catch (error) {
+    console.log('[Auth] Error in authenticateToken:', error.name, error.message);
     if (error.name === 'JsonWebTokenError') {
       return res.status(401).json({ 
         success: false,

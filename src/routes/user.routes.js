@@ -10,7 +10,8 @@ import {
   updateNotificationPreferencesSchema,
   updateThemeSchema,
   searchUsersSchema,
-  generateNDASchema 
+  generateNDASchema,
+  updatePasswordSchema
 } from '../validators/userValidators.js';
 
 const router = Router();
@@ -98,7 +99,7 @@ router.get('/:id', userController.getPublicProfile);
 
 // Account Settings
 router.put('/profile/email', authenticateToken, validateBody(updateProfileSchema), userController.updateEmail);
-router.put('/profile/password', authenticateToken, validateBody(updateProfileSchema), userController.updatePassword);
+router.put('/profile/password', authenticateToken, validateBody(updatePasswordSchema), userController.updatePassword);
 router.put('/profile/roles', authenticateToken, validateBody(updateRolesSchema), userController.updateRoles);
 router.get('/profile/roles', authenticateToken, userController.getRoles);
 
