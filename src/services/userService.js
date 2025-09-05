@@ -43,11 +43,26 @@ class UserService {
     }
   }
 
+  // Get user profile by ID
+  async getProfileById(userId) {
+    try {
+      const user = await User.findById(userId)
+        .select('-password -__v')
+        .lean();
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return user;
+    } catch (err) {
+      throw new Error('User not found');
+    }
+  }
+
   // Update user profile
-  async updateProfile(token, updateData) {
+  async updateProfile(userId, updateData) {
     console.log('[UserService] updateProfile called with data:', JSON.stringify(updateData, null, 2));
     
-    const user = await this.getUserFromToken(token);
+    const user = await User.findById(userId);
     if (!user) {
       throw new Error('User not found');
     }

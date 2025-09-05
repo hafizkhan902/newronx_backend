@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
+import Notification from '../models/notification.model.js';
 
 class NotificationService {
   // Helper method to get user from token
@@ -315,18 +316,19 @@ class NotificationService {
       throw new Error('User not found');
     }
 
-    const notification = {
+    // Create notification document
+    const notification = new Notification({
+      recipient: userId,
       type: notificationData.type,
       title: notificationData.title,
       message: notificationData.message,
       data: notificationData.data || {},
-      read: false,
-      createdAt: new Date()
-    };
+      priority: notificationData.priority || 'medium',
+      relatedEntities: notificationData.relatedEntities || {},
+      expiresAt: notificationData.expiresAt || null
+    });
 
-    // Add to user's notifications
-    user.notifications.unshift(notification);
-    await user.save();
+    await notification.save();
 
     // Send notifications based on user preferences
     await this.sendNotificationChannels(user, notification);

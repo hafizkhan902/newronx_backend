@@ -89,8 +89,8 @@ class ChatService {
   }
 
   // Get user's chats
-  async getUserChats(token, filters) {
-    const currentUser = await this.getUserFromToken(token);
+  async getUserChats(userId, filters) {
+    const currentUser = await User.findById(userId);
     if (!currentUser) {
       throw new Error('User not found');
     }

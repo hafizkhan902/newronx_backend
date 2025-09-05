@@ -9,12 +9,13 @@ class UserController extends BaseController {
 
   // Get user profile
   getProfile = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
-    const user = await this.userService.getProfileByToken(token);
+    const user = await this.userService.getProfileById(userId);
     if (!user) {
       return this.sendNotFound(res, 'User not found.');
     }
@@ -24,12 +25,13 @@ class UserController extends BaseController {
 
   // Update user profile
   updateProfile = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
-    const result = await this.userService.updateProfile(token, req.body);
+    const result = await this.userService.updateProfile(userId, req.body);
     
     this.sendSuccess(res, result, 'Profile updated successfully.');
   });
@@ -85,13 +87,16 @@ class UserController extends BaseController {
 
   // Search users
   searchUsers = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { q, limit = 10 } = req.query;
     
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.searchUsers(token, q, limit);
     
     this.sendSuccess(res, result, 'Users searched successfully.');
@@ -111,13 +116,16 @@ class UserController extends BaseController {
 
   // Update email
   updateEmail = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { email, password } = req.body;
     
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.updateEmail(token, email, password);
     
     this.sendSuccess(res, result, 'Email updated successfully.');
@@ -125,12 +133,7 @@ class UserController extends BaseController {
 
   // Update password
   updatePassword = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
-    }
-
-    // Use authenticated user attached by middleware
+    // Use authenticated user from middleware
     const userId = req.user && req.user._id;
     if (!userId) {
       return this.sendUnauthorized(res, 'Invalid or expired token.');
@@ -145,11 +148,14 @@ class UserController extends BaseController {
 
   // Update roles
   updateRoles = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.updateRoles(token, req.body);
     
     this.sendSuccess(res, result, 'Roles updated successfully.');
@@ -157,11 +163,14 @@ class UserController extends BaseController {
 
   // Get roles
   getRoles = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const roles = await this.userService.getRoles(token);
     
     this.sendSuccess(res, roles, 'Roles retrieved successfully.');
@@ -169,11 +178,14 @@ class UserController extends BaseController {
 
   // Get privacy settings
   getPrivacy = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const privacy = await this.userService.getPrivacy(token);
     
     this.sendSuccess(res, privacy, 'Privacy settings retrieved successfully.');
@@ -181,11 +193,14 @@ class UserController extends BaseController {
 
   // Update privacy settings
   updatePrivacy = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.updatePrivacy(token, req.body);
     
     this.sendSuccess(res, result, 'Privacy settings updated successfully.');
@@ -193,15 +208,18 @@ class UserController extends BaseController {
 
   // Upload NDA
   uploadNDA = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     if (!req.file) {
       return this.sendBadRequest(res, 'No file uploaded.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.uploadNDA(token, req.file);
     
     this.sendSuccess(res, result, 'NDA uploaded successfully.');
@@ -209,13 +227,16 @@ class UserController extends BaseController {
 
   // Generate NDA
   generateNDA = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { companyName, projectName, protectionScope } = req.body;
     
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.generateNDA(token, companyName, projectName, protectionScope);
     
     this.sendSuccess(res, result, 'NDA generated successfully.');
@@ -223,11 +244,14 @@ class UserController extends BaseController {
 
   // Remove NDA
   removeNDA = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.removeNDA(token);
     
     this.sendSuccess(res, result, 'NDA removed successfully.');
@@ -235,11 +259,14 @@ class UserController extends BaseController {
 
   // Get notification settings
   getNotifications = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const notifications = await this.userService.getNotifications(token);
     
     this.sendSuccess(res, notifications, 'Notification settings retrieved successfully.');
@@ -247,11 +274,14 @@ class UserController extends BaseController {
 
   // Update email notifications
   updateEmailNotifications = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.updateEmailNotifications(token, req.body);
     
     this.sendSuccess(res, result, 'Email notification settings updated successfully.');
@@ -259,11 +289,14 @@ class UserController extends BaseController {
 
   // Update app notifications
   updateAppNotifications = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.updateAppNotifications(token, req.body);
     
     this.sendSuccess(res, result, 'App notification settings updated successfully.');
@@ -271,13 +304,16 @@ class UserController extends BaseController {
 
   // Request notification permission
   requestNotificationPermission = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { permission } = req.body;
     
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.requestNotificationPermission(token, permission);
     
     this.sendSuccess(res, result, 'Browser notification permission updated successfully.');
@@ -285,13 +321,16 @@ class UserController extends BaseController {
 
   // Send test notification
   sendTestNotification = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { type } = req.body;
     
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.sendTestNotification(token, type);
     
     this.sendSuccess(res, result, 'Test notification sent successfully.');
@@ -299,11 +338,14 @@ class UserController extends BaseController {
 
   // Get theme settings
   getTheme = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const theme = await this.userService.getTheme(token);
     
     this.sendSuccess(res, theme, 'Theme settings retrieved successfully.');
@@ -311,11 +353,14 @@ class UserController extends BaseController {
 
   // Update theme settings
   updateTheme = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.updateTheme(token, req.body);
     
     this.sendSuccess(res, result, 'Theme settings updated successfully.');
@@ -323,13 +368,16 @@ class UserController extends BaseController {
 
   // Update theme mode
   updateThemeMode = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { mode } = req.body;
     
+    // Convert userId to string for the service
+    const token = userId.toString();
     const result = await this.userService.updateThemeMode(token, mode);
     
     this.sendSuccess(res, result, 'Theme mode updated successfully.');
@@ -337,11 +385,14 @@ class UserController extends BaseController {
 
   // Download profile data
   downloadProfile = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'No token, authorization denied.');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
+    // Convert userId to string for the service
+    const token = userId.toString();
     const csvContent = await this.userService.generateProfileCSV(token);
     
     // Set response headers for CSV file download

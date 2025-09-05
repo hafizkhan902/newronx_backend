@@ -20,12 +20,14 @@ import ideaRoutes from './routes/idea.routes.js';
 import chatRoutes from './routes/chat.routes.js';
 import messageRoutes from './routes/message.routes.js';
 import emailRoutes from './routes/email.routes.js';
+import teamRoutes from './routes/team.routes.js';
+import taskRoutes from './routes/task.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
 import aiRoutes from './routes/ai.routes.js';
 
 const app = express();
 
-// Trust proxy (safely) for correct client IP detection
+// Trust  (safely) for correct client IP detection
 // Use a non-permissive value to satisfy express-rate-limit validation
 // - In production, trust the first proxy hop (e.g., nginx/Heroku/Cloudflare)
 // - In development, trust only loopback addresses
@@ -397,6 +399,8 @@ app.use('/api/ideas', ideaRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/email', emailRoutes);
+app.use('/api/teams', teamRoutes);
+app.use('/api/tasks', taskRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/ai', aiRoutes);
 

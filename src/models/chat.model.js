@@ -100,6 +100,11 @@ const chatSchema = new mongoose.Schema({
   relatedIdea: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Idea'
+  },
+  // Flexible metadata for different chat types
+  metadata: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
   }
 }, {
   timestamps: true
