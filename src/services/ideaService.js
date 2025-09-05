@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import Idea from '../models/idea.model.js';
 import User from '../models/user.model.js';
+import Chat from '../models/chat.model.js';
+import TeamService from './teamService.js';
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 
@@ -12,6 +14,9 @@ class IdeaService {
       api_key: '556186415216556',
       api_secret: 'vFobJ4jaGdWeYmFZtsTwwBI-MpU'
     });
+    
+    // Initialize team service
+    this.teamService = new TeamService();
   }
 
   // Normalize incoming payload to maintain backward compatibility with older frontends
@@ -956,6 +961,241 @@ class IdeaService {
       averageLikes: 0,
       averageComments: 0
     };
+  }
+
+  // Helper method to create group chat when approach is accepted
+  async createIdeaCollaborationChat(idea, approacher, ideaAuthor) {
+    try {
+      // Check if chat already exists for this idea and approacher combination
+      const existingChat = await Chat.findOne({
+        type: 'group',
+        'metadata.ideaId': idea._id,
+        'members.user': { $all: [ideaAuthor._id, approacher._id] }
+      });
+
+      if (existingChat) {
+        console.log('Chat already exists for this idea collaboration');
+        return existingChat;
+      }
+
+      // Create group chat with idea title
+      const chatName = `💡 ${idea.title}`;
+      const chatDescription = `Collaboration chat for the idea: ${idea.title}`;
+
+      const chat = new Chat({
+        type: 'group',
+        name: chatName,
+        description: chatDescription,
+        members: [
+          {
+            user: ideaAuthor._id,
+            role: 'admin', // Idea author is admin
+            joinedAt: new Date(),
+            isActive: true
+          },
+          {
+            user: approacher._id,
+            role: 'member', // Approacher is member
+            joinedAt: new Date(),
+            isActive: true
+          }
+        ],
+        creator: ideaAuthor._id,
+        metadata: {
+          ideaId: idea._id,
+          ideaTitle: idea.title,
+          chatType: 'idea_collaboration',
+          approachId: null // Will be set by caller
+        }
+      });
+
+      await chat.save();
+
+      // Populate member information
+      await chat.populate('members.user', 'firstName fullName avatar');
+      await chat.populate('creator', 'firstName fullName avatar');
+
+      console.log(`Created collaboration chat: ${chatName} for idea: ${idea.title}`);
+      return chat;
+
+    } catch (error) {
+      console.error('Error creating collaboration chat:', error);
+      throw new Error('Failed to create collaboration chat');
+    }
+  }
+
+  // Send notification about chat creation
+  async notifyApproacherAboutChat(approacher, chat, idea) {
+    try {
+      // Import notification service dynamically to avoid circular dependencies
+      const { default: NotificationService } = await import('./notificationService.js');
+      const notificationService = new NotificationService();
+
+      await notificationService.createNotification(approacher._id, {
+        type: 'chat_created',
+        title: 'Collaboration Chat Created',
+        message: `Your approach for "${idea.title}" was accepted! A collaboration chat has been created.`,
+        data: {
+          chatId: chat._id,
+          ideaId: idea._id,
+          ideaTitle: idea.title,
+          chatName: chat.name
+        },
+        relatedEntities: {
+          idea: idea._id,
+          chat: chat._id,
+          user: ideaAuthor._id
+        }
+      });
+
+      console.log(`Notification sent to ${approacher.fullName} about chat creation`);
+    } catch (error) {
+      console.error('Error sending chat notification:', error);
+      // Don't throw error here as chat creation is more important than notification
+    }
+  }
+
+  // Update approach status (select/decline/queue) with team conflict detection
+  async updateApproachStatus(userId, ideaId, approachId, status, resolution = null) {
+    // Find the idea with populated data
+    const idea = await Idea.findById(ideaId)
+      .populate('author', 'firstName fullName avatar email')
+      .populate('approaches.user', 'firstName fullName avatar email')
+      .populate('teamStructure.teamComposition.user', 'firstName fullName avatar');
+    
+    if (!idea) {
+      throw new Error('Idea not found');
+    }
+
+    // Check if user is the idea author
+    if (idea.author._id.toString() !== userId.toString()) {
+      throw new Error('Only the idea author can manage approaches');
+    }
+
+    // Find the approach
+    const approach = idea.approaches.id(approachId);
+    if (!approach) {
+      throw new Error('Approach not found');
+    }
+
+    // Validate status transition
+    const validTransitions = {
+      'pending': ['selected', 'declined', 'queued'],
+      'queued': ['selected', 'declined'],
+      'selected': ['declined', 'queued'],
+      'declined': ['selected', 'queued']
+    };
+
+    if (!validTransitions[approach.status]?.includes(status)) {
+      throw new Error(`Invalid status transition from ${approach.status} to ${status}`);
+    }
+
+    const previousStatus = approach.status;
+
+    // If selecting approach, check for role conflicts
+    if (status === 'selected') {
+      const conflict = await this.teamService.checkRoleConflict(ideaId, approach.role);
+      
+      if (conflict.hasConflict && !resolution) {
+        // Return conflict information for frontend to handle
+        return {
+          success: false,
+          conflict: true,
+          conflictData: conflict,
+          approach: {
+            id: approachId,
+            user: approach.user,
+            role: approach.role,
+            description: approach.description
+          }
+        };
+      }
+
+      // If resolution provided, handle it
+      if (conflict.hasConflict && resolution) {
+        const resolutionResult = await this.teamService.acceptApproachWithResolution(
+          ideaId, 
+          approachId, 
+          { ...resolution, authorId: userId }
+        );
+        
+        return {
+          success: true,
+          approach: {
+            ...approach.toObject(),
+            status: 'selected',
+            statusUpdatedAt: new Date(),
+            statusUpdatedBy: userId
+          },
+          resolution: resolutionResult,
+          teamMetrics: idea.getTeamMetrics(),
+          message: `Approach accepted with resolution: ${resolutionResult.message}`
+        };
+      }
+
+      // No conflict, proceed with normal team addition
+      if (!conflict.hasConflict) {
+        const roleData = {
+          assignedRole: approach.role,
+          roleType: approach.role
+        };
+        idea.addTeamMember(approach.user._id, roleData, userId);
+      }
+    }
+
+    // Update approach status
+    approach.status = status;
+    approach.statusUpdatedAt = new Date();
+    approach.statusUpdatedBy = userId;
+
+    await idea.save();
+
+    // If approach is being selected for the first time, create collaboration chat
+    let createdChat = null;
+    if (status === 'selected' && previousStatus !== 'selected') {
+      try {
+        // Get the approacher user details
+        const approacher = await User.findById(approach.user).select('firstName fullName avatar email');
+        if (approacher) {
+          // Create collaboration chat
+          createdChat = await this.createIdeaCollaborationChat(idea, approacher, idea.author);
+          
+          // Update chat metadata with approach ID
+          if (createdChat) {
+            createdChat.metadata.approachId = approachId;
+            await createdChat.save();
+
+            // Send notification to approacher
+            await this.notifyApproacherAboutChat(approacher, createdChat, idea);
+          }
+        }
+      } catch (chatError) {
+        console.error('Error creating collaboration chat:', chatError);
+        // Don't fail the entire operation if chat creation fails
+        // The approach status update is more critical
+      }
+    }
+
+    // Populate approach user info for response
+    await idea.populate('approaches.user', 'firstName fullName avatar');
+    await idea.populate('approaches.statusUpdatedBy', 'firstName fullName');
+
+    const result = {
+      approach: approach,
+      message: `Approach ${status} successfully`,
+      updatedAt: approach.statusUpdatedAt
+    };
+
+    // Include chat info in response if created
+    if (createdChat) {
+      result.collaborationChat = {
+        chatId: createdChat._id,
+        chatName: createdChat.name,
+        message: 'Collaboration chat created successfully'
+      };
+    }
+
+    return result;
   }
 }
 

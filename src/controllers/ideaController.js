@@ -326,6 +326,47 @@ class IdeaController extends BaseController {
     
     this.sendSuccess(res, insights, 'Idea insights retrieved successfully.');
   });
+
+  // Update approach status (select/decline/queue) with conflict resolution
+  updateApproachStatus = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Please login to manage approaches');
+    }
+
+    const { ideaId, approachId } = req.params;
+    const { status, resolution } = req.body;
+
+    // Validate status
+    if (!status || !['selected', 'declined', 'queued'].includes(status)) {
+      return this.sendBadRequest(res, 'Invalid status. Must be: selected, declined, or queued');
+    }
+
+    // Validate resolution if provided
+    if (resolution && status === 'selected') {
+      const validActions = ['subrole', 'replace', 'expand'];
+      if (!resolution.action || !validActions.includes(resolution.action)) {
+        return this.sendBadRequest(res, 'Invalid resolution action. Must be: subrole, replace, or expand');
+      }
+    }
+
+    const result = await this.ideaService.updateApproachStatus(userId, ideaId, approachId, status, resolution);
+    
+    // Handle conflict response
+    if (!result.success && result.conflict) {
+      return res.status(409).json({
+        success: false,
+        conflict: true,
+        message: 'Role conflict detected. Resolution required.',
+        data: result,
+        timestamp: new Date().toISOString(),
+        statusCode: 409
+      });
+    }
+    
+    this.sendSuccess(res, result, result.message || `Approach ${status} successfully.`);
+  });
 }
 
 export default new IdeaController();

@@ -9,9 +9,10 @@ class MessageController extends BaseController {
 
   // Send message
   sendMessage = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'Please login to send a message');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { recipientId, content, type = 'text' } = req.body;
@@ -20,7 +21,7 @@ class MessageController extends BaseController {
       return this.sendBadRequest(res, 'Recipient ID and content are required');
     }
 
-    const result = await this.messageService.sendMessage(token, recipientId, content, type);
+    const result = await this.messageService.sendMessage(userId, recipientId, content, type);
     
     this.sendSuccess(res, result, 'Message sent successfully.');
   });
@@ -202,6 +203,74 @@ class MessageController extends BaseController {
     const result = await this.messageService.removeReaction(token, messageId);
     
     this.sendSuccess(res, result, 'Reaction removed successfully.');
+  });
+
+  // === GROUP CHAT MESSAGING METHODS ===
+
+  // Get messages for a specific chat
+  getChatMessages = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { chatId } = req.params;
+    const { page = 1, limit = 50 } = req.query;
+    
+    if (!chatId) {
+      return this.sendBadRequest(res, 'Chat ID is required');
+    }
+
+    const result = await this.messageService.getChatMessages(userId, chatId, {
+      page: parseInt(page),
+      limit: parseInt(limit)
+    });
+    
+    this.sendSuccess(res, result, 'Chat messages retrieved successfully.');
+  });
+
+  // Send message to a specific chat
+  sendChatMessage = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { chatId } = req.params;
+    const { content, type = 'text', replyTo } = req.body;
+    
+    if (!chatId || !content) {
+      return this.sendBadRequest(res, 'Chat ID and content are required');
+    }
+
+    const result = await this.messageService.sendChatMessage(userId, chatId, {
+      content,
+      type,
+      replyTo
+    });
+    
+    this.sendSuccess(res, result, 'Message sent successfully.', 201);
+  });
+
+  // Mark message as read in chat
+  markChatMessageAsRead = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { chatId, messageId } = req.params;
+    
+    if (!chatId || !messageId) {
+      return this.sendBadRequest(res, 'Chat ID and Message ID are required');
+    }
+
+    const result = await this.messageService.markChatMessageAsRead(userId, chatId, messageId);
+    
+    this.sendSuccess(res, result, 'Message marked as read successfully.');
   });
 }
 

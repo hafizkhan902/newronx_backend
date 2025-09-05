@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import ideaController from '../controllers/ideaController.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -61,6 +62,8 @@ router.post('/:id/propose', ideaController.approachIdea);
 router.get('/:id/approaches', ideaController.getApproaches);
 // View all incoming approaches to current user's ideas
 router.get('/incoming/approaches', ideaController.getIncomingApproaches);
+// Update approach status (select/decline/queue)
+router.put('/:ideaId/approaches/:approachId', authenticateToken, ideaController.updateApproachStatus);
 
 // User-specific routes
 router.get('/user/me', ideaController.getUserIdeas);

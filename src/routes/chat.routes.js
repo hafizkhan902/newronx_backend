@@ -1,7 +1,11 @@
 import { Router } from 'express';
 import chatController from '../controllers/chatController.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
+
+// Apply authentication middleware to all chat routes
+router.use(authenticateToken);
 
 // Chat management
 router.post('/', chatController.createChat);

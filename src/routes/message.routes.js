@@ -1,7 +1,11 @@
 import { Router } from 'express';
 import messageController from '../controllers/messageController.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
+
+// Apply authentication middleware to all message routes
+router.use(authenticateToken);
 
 // Send message
 router.post('/', messageController.sendMessage);
@@ -11,6 +15,16 @@ router.get('/conversation/:recipientId', messageController.getConversation);
 
 // Get all conversations
 router.get('/conversations', messageController.getConversations);
+
+// === GROUP CHAT MESSAGING ENDPOINTS ===
+// Get messages for a specific chat
+router.get('/chat/:chatId', messageController.getChatMessages);
+
+// Send message to a specific chat
+router.post('/chat/:chatId', messageController.sendChatMessage);
+
+// Mark message as read in chat
+router.patch('/chat/:chatId/messages/:messageId/read', messageController.markChatMessageAsRead);
 
 // Mark message as read
 router.patch('/:messageId/read', messageController.markAsRead);

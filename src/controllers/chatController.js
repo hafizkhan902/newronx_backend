@@ -27,14 +27,15 @@ class ChatController extends BaseController {
 
   // Get user's chats
   getUserChats = this.asyncHandler(async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return this.sendUnauthorized(res, 'Please login to view chats');
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
     }
 
     const { page = 1, limit = 20, type } = req.query;
     
-    const result = await this.chatService.getUserChats(token, {
+    const result = await this.chatService.getUserChats(userId, {
       page: parseInt(page),
       limit: parseInt(limit),
       type
