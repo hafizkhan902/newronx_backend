@@ -963,18 +963,44 @@ class IdeaService {
     };
   }
 
-  // Helper method to create group chat when approach is accepted
+  // Helper method to create or add to collaboration chat when approach is accepted
   async createIdeaCollaborationChat(idea, approacher, ideaAuthor) {
     try {
-      // Check if chat already exists for this idea and approacher combination
+      // Check if ANY collaboration chat already exists for this idea
       const existingChat = await Chat.findOne({
         type: 'group',
         'metadata.ideaId': idea._id,
-        'members.user': { $all: [ideaAuthor._id, approacher._id] }
+        'metadata.chatType': 'idea_collaboration'
       });
 
       if (existingChat) {
-        console.log('Chat already exists for this idea collaboration');
+        // Check if approacher is already a member
+        const isAlreadyMember = existingChat.members.some(member => 
+          member.user.toString() === approacher._id.toString()
+        );
+
+        if (isAlreadyMember) {
+          console.log('Approacher is already a member of the collaboration chat');
+          return existingChat;
+        }
+
+        // Add new member to existing chat
+        existingChat.members.push({
+          user: approacher._id,
+          role: 'member',
+          joinedAt: new Date(),
+          isActive: true
+        });
+
+        existingChat.lastActivity = new Date();
+        await existingChat.save();
+
+        console.log(`Added ${approacher.fullName} to existing collaboration chat: ${existingChat.name}`);
+        
+        // Populate member information
+        await existingChat.populate('members.user', 'firstName fullName avatar');
+        await existingChat.populate('creator', 'firstName fullName avatar');
+
         return existingChat;
       }
 
@@ -1024,31 +1050,45 @@ class IdeaService {
     }
   }
 
-  // Send notification about chat creation
-  async notifyApproacherAboutChat(approacher, chat, idea) {
+  // Send notification about chat creation or addition
+  async notifyApproacherAboutChat(approacher, chat, idea, action = 'created_new') {
     try {
       // Import notification service dynamically to avoid circular dependencies
       const { default: NotificationService } = await import('./notificationService.js');
       const notificationService = new NotificationService();
 
+      let title, message, type;
+      
+      if (action === 'added_to_existing') {
+        type = 'chat_joined';
+        title = 'Added to Collaboration Chat';
+        message = `Your approach for "${idea.title}" was accepted! You've been added to the existing collaboration chat.`;
+      } else {
+        type = 'chat_created';
+        title = 'Collaboration Chat Created';
+        message = `Your approach for "${idea.title}" was accepted! A collaboration chat has been created.`;
+      }
+
       await notificationService.createNotification(approacher._id, {
-        type: 'chat_created',
-        title: 'Collaboration Chat Created',
-        message: `Your approach for "${idea.title}" was accepted! A collaboration chat has been created.`,
+        type,
+        title,
+        message,
         data: {
           chatId: chat._id,
           ideaId: idea._id,
           ideaTitle: idea.title,
-          chatName: chat.name
+          chatName: chat.name,
+          action,
+          memberCount: chat.members.length
         },
         relatedEntities: {
           idea: idea._id,
           chat: chat._id,
-          user: ideaAuthor._id
+          user: idea.author
         }
       });
 
-      console.log(`Notification sent to ${approacher.fullName} about chat creation`);
+      console.log(`Notification sent to ${approacher.fullName} about ${action === 'added_to_existing' ? 'joining existing chat' : 'chat creation'}`);
     } catch (error) {
       console.error('Error sending chat notification:', error);
       // Don't throw error here as chat creation is more important than notification
@@ -1150,27 +1190,38 @@ class IdeaService {
 
     await idea.save();
 
-    // If approach is being selected for the first time, create collaboration chat
-    let createdChat = null;
+    // If approach is being selected for the first time, create/update collaboration chat
+    let collaborationChat = null;
+    let chatAction = null;
     if (status === 'selected' && previousStatus !== 'selected') {
       try {
         // Get the approacher user details
         const approacher = await User.findById(approach.user).select('firstName fullName avatar email');
         if (approacher) {
-          // Create collaboration chat
-          createdChat = await this.createIdeaCollaborationChat(idea, approacher, idea.author);
-          
-          // Update chat metadata with approach ID
-          if (createdChat) {
-            createdChat.metadata.approachId = approachId;
-            await createdChat.save();
+          // Check if chat already exists to determine action
+          const existingChat = await Chat.findOne({
+            type: 'group',
+            'metadata.ideaId': idea._id,
+            'metadata.chatType': 'idea_collaboration'
+          });
 
-            // Send notification to approacher
-            await this.notifyApproacherAboutChat(approacher, createdChat, idea);
+          // Create or add to collaboration chat
+          collaborationChat = await this.createIdeaCollaborationChat(idea, approacher, idea.author);
+          
+          // Determine what action was taken
+          chatAction = existingChat ? 'added_to_existing' : 'created_new';
+
+          // Update chat metadata with approach ID (for new chats)
+          if (collaborationChat && !existingChat) {
+            collaborationChat.metadata.approachId = approachId;
+            await collaborationChat.save();
           }
+
+          // Send notification to approacher
+          await this.notifyApproacherAboutChat(approacher, collaborationChat, idea, chatAction);
         }
       } catch (chatError) {
-        console.error('Error creating collaboration chat:', chatError);
+        console.error('Error managing collaboration chat:', chatError);
         // Don't fail the entire operation if chat creation fails
         // The approach status update is more critical
       }
@@ -1186,12 +1237,16 @@ class IdeaService {
       updatedAt: approach.statusUpdatedAt
     };
 
-    // Include chat info in response if created
-    if (createdChat) {
+    // Include chat info in response if created/updated
+    if (collaborationChat) {
       result.collaborationChat = {
-        chatId: createdChat._id,
-        chatName: createdChat.name,
-        message: 'Collaboration chat created successfully'
+        chatId: collaborationChat._id,
+        chatName: collaborationChat.name,
+        memberCount: collaborationChat.members.length,
+        message: chatAction === 'added_to_existing' 
+          ? 'Added to existing collaboration chat successfully'
+          : 'Collaboration chat created successfully',
+        action: chatAction
       };
     }
 

@@ -127,4 +127,8 @@ router.patch('/profile/theme/mode', authenticateToken, validateBody(updateThemeS
 // Data Export
 router.get('/profile/download', authenticateToken, userController.downloadProfile);
 
+// Profile statistics and contributions (missing endpoints)
+router.get('/profile/ideas/stats', authenticateToken, userController.getProfileIdeasStats);
+router.get('/profile/contributions', authenticateToken, userController.getProfileContributions);
+
 export default router; 

@@ -18,6 +18,14 @@ router.get('/:ideaId/role-suggestions', teamController.getRoleSuggestions);
 
 // Team member management
 router.patch('/:ideaId/members/:memberId/role', teamController.updateMemberRole);
+router.patch('/:ideaId/members/:memberId/leadership', teamController.updateMemberLeadership);
 router.delete('/:ideaId/members/:memberId', teamController.removeMember);
+
+// Manual subrole management
+router.post('/:ideaId/members/:memberId/subroles', teamController.addSubroleMember);
+router.get('/subrole-options', teamController.getSubroleOptions);
+router.get('/:ideaId/search-users', teamController.searchUsersForSubrole);
+router.get('/:ideaId/members/:memberId/subroles', teamController.getSubrolesForMember);
+router.delete('/:ideaId/members/:memberId/subroles/:subroleMemberId', teamController.removeSubroleMember);
 
 export default router;

@@ -367,6 +367,26 @@ class IdeaController extends BaseController {
     
     this.sendSuccess(res, result, result.message || `Approach ${status} successfully.`);
   });
+
+  // Get user's contributions (missing endpoint)
+  getMyContributions = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    // Placeholder response - implement based on requirements
+    const contributions = {
+      ideasCreated: [],
+      approachesSubmitted: [],
+      collaborations: [],
+      tasksAssigned: [],
+      totalContributions: 0
+    };
+
+    this.sendSuccess(res, contributions, 'User contributions retrieved successfully.');
+  });
 }
 
 export default new IdeaController();

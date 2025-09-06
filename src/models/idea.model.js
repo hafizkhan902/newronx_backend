@@ -718,6 +718,7 @@ ideaSchema.methods.addTeamMember = function(userId, roleData, assignedBy) {
     roleType: roleData.roleType,
     normalizedRoleType: roleData.roleType.toLowerCase().trim(),
     isLead: roleData.isLead || false,
+    parentRoleId: roleData.parentRoleId || null, // Include parentRoleId for subroles
     assignedBy: assignedBy,
     assignedAt: new Date()
   };
@@ -741,9 +742,10 @@ ideaSchema.methods.addTeamMember = function(userId, roleData, assignedBy) {
 };
 
 ideaSchema.methods.removeTeamMember = function(userId) {
-  const memberIndex = this.teamStructure.teamComposition.findIndex(member => 
-    member.user.toString() === userId.toString() && member.status === 'active'
-  );
+  const memberIndex = this.teamStructure.teamComposition.findIndex(member => {
+    const memberUserId = member.user._id ? member.user._id.toString() : member.user.toString();
+    return memberUserId === userId.toString() && member.status === 'active';
+  });
   
   if (memberIndex === -1) {
     throw new Error('Team member not found');
