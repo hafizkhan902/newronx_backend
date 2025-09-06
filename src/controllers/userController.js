@@ -383,6 +383,47 @@ class UserController extends BaseController {
     this.sendSuccess(res, result, 'Theme mode updated successfully.');
   });
 
+  // Get profile ideas statistics (missing endpoint)
+  getProfileIdeasStats = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    // Placeholder response - implement based on requirements
+    const stats = {
+      totalIdeas: 0,
+      publishedIdeas: 0,
+      draftIdeas: 0,
+      totalViews: 0,
+      totalLikes: 0,
+      totalApproaches: 0,
+      collaborations: 0
+    };
+
+    this.sendSuccess(res, stats, 'Profile ideas statistics retrieved successfully.');
+  });
+
+  // Get profile contributions (missing endpoint)
+  getProfileContributions = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    // Placeholder response - implement based on requirements
+    const contributions = {
+      ideasContributed: [],
+      tasksCompleted: [],
+      collaborations: [],
+      totalContributions: 0
+    };
+
+    this.sendSuccess(res, contributions, 'Profile contributions retrieved successfully.');
+  });
+
   // Download profile data
   downloadProfile = this.asyncHandler(async (req, res) => {
     // Use authenticated user from middleware

@@ -22,6 +22,7 @@ import messageRoutes from './routes/message.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import teamRoutes from './routes/team.routes.js';
 import taskRoutes from './routes/task.routes.js';
+import contributionsRoutes from './routes/contributions.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
 import aiRoutes from './routes/ai.routes.js';
 
@@ -401,6 +402,7 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use('/api/contributions', contributionsRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/ai', aiRoutes);
 

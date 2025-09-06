@@ -162,7 +162,7 @@ class TeamController extends BaseController {
     }, 'Feature in development.');
   });
 
-  // Remove team member (for idea authors)
+  // Remove team member (for idea authors and team leaders)
   removeMember = this.asyncHandler(async (req, res) => {
     // Use authenticated user from middleware
     const userId = req.user && req.user._id;
@@ -176,13 +176,139 @@ class TeamController extends BaseController {
       return this.sendBadRequest(res, 'Idea ID and Member ID are required');
     }
 
-    // This would require additional implementation in TeamService
-    // For now, return a placeholder response
-    this.sendSuccess(res, { 
-      message: 'Member removal functionality coming soon',
-      ideaId,
-      memberId
-    }, 'Feature in development.');
+    const result = await this.teamService.removeTeamMember(ideaId, memberId, userId);
+    
+    this.sendSuccess(res, result, result.message);
+  });
+
+  // Add subrole member manually
+  addSubroleMember = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { ideaId, memberId } = req.params;
+    const { newUserId, subroleData } = req.body;
+    
+    if (!ideaId || !memberId || !newUserId || !subroleData) {
+      return this.sendBadRequest(res, 'Idea ID, Member ID, new user ID, and subrole data are required');
+    }
+
+    // Validate subrole data
+    if (!subroleData.title && !subroleData.level) {
+      return this.sendBadRequest(res, 'Subrole data must include either title or level');
+    }
+
+    const result = await this.teamService.addSubroleMember(ideaId, memberId, newUserId, subroleData, userId);
+    
+    this.sendSuccess(res, result, result.message, 201);
+  });
+
+  // Get subrole options for a role
+  getSubroleOptions = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { roleType } = req.query;
+    
+    if (!roleType) {
+      return this.sendBadRequest(res, 'Role type is required');
+    }
+
+    const options = await this.teamService.getSubroleOptions(roleType);
+    
+    this.sendSuccess(res, { subroleOptions: options }, 'Subrole options retrieved successfully.');
+  });
+
+  // Search users for subrole assignment
+  searchUsersForSubrole = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { ideaId } = req.params;
+    const { q: searchQuery, excludeMembers } = req.query;
+    
+    if (!ideaId) {
+      return this.sendBadRequest(res, 'Idea ID is required');
+    }
+
+    const users = await this.teamService.searchUsersForSubrole(
+      searchQuery || '', 
+      ideaId, 
+      excludeMembers !== 'false'
+    );
+    
+    this.sendSuccess(res, { users }, 'User search completed successfully.');
+  });
+
+  // Get subroles for a specific parent member
+  getSubrolesForMember = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { ideaId, memberId } = req.params;
+    
+    if (!ideaId || !memberId) {
+      return this.sendBadRequest(res, 'Idea ID and Member ID are required');
+    }
+
+    const result = await this.teamService.getSubrolesForMember(ideaId, memberId, userId);
+    
+    this.sendSuccess(res, result, 'Subroles retrieved successfully.');
+  });
+
+  // Remove subrole member
+  removeSubroleMember = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { ideaId, memberId, subroleMemberId } = req.params;
+    
+    if (!ideaId || !memberId || !subroleMemberId) {
+      return this.sendBadRequest(res, 'Idea ID, Member ID, and Subrole Member ID are required');
+    }
+
+    const result = await this.teamService.removeSubroleMember(ideaId, memberId, subroleMemberId, userId);
+    
+    this.sendSuccess(res, result, result.message);
+  });
+
+  // Update member leadership status
+  updateMemberLeadership = this.asyncHandler(async (req, res) => {
+    // Use authenticated user from middleware
+    const userId = req.user && req.user._id;
+    if (!userId) {
+      return this.sendUnauthorized(res, 'Invalid or expired token.');
+    }
+
+    const { ideaId, memberId } = req.params;
+    const { isLead } = req.body;
+    
+    if (!ideaId || !memberId) {
+      return this.sendBadRequest(res, 'Idea ID and Member ID are required');
+    }
+
+    if (typeof isLead !== 'boolean') {
+      return this.sendBadRequest(res, 'isLead must be a boolean value');
+    }
+
+    const result = await this.teamService.updateMemberLeadership(ideaId, memberId, isLead, userId);
+    
+    this.sendSuccess(res, result, result.message);
   });
 }
 

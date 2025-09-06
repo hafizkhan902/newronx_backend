@@ -72,4 +72,7 @@ router.get('/:id/insights', ideaController.getIdeaInsights);
 // Reporting
 router.post('/:id/report', ideaController.reportIdea);
 
+// Missing endpoints for user contributions
+router.get('/my/contributions', authenticateToken, ideaController.getMyContributions);
+
 export default router; 
