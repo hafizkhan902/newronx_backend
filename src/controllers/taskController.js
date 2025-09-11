@@ -26,8 +26,12 @@ class TaskController extends BaseController {
       deadline,
       assignmentType,
       assignedUsers,
-      tags
+      tags,
+      links
     } = req.body;
+
+    // Handle file attachments from multer
+    const files = req.files || [];
 
     // Validate required fields
     if (!ideaId || !title || !description || !priority || !category || !estimatedHours || !deadline) {
@@ -65,6 +69,52 @@ class TaskController extends BaseController {
       return this.sendBadRequest(res, 'Deadline must be in the future');
     }
 
+    // Validate links if provided
+    let validatedLinks = [];
+    if (links && Array.isArray(links)) {
+      for (const link of links) {
+        if (typeof link === 'string' && link.trim()) {
+          // Basic URL validation
+          try {
+            new URL(link.trim());
+            validatedLinks.push({
+              url: link.trim(),
+              title: link.trim(),
+              type: 'link'
+            });
+          } catch (error) {
+            return this.sendBadRequest(res, `Invalid URL format: ${link}`);
+          }
+        } else if (typeof link === 'object' && link.url) {
+          try {
+            new URL(link.url.trim());
+            validatedLinks.push({
+              url: link.url.trim(),
+              title: link.title || link.url.trim(),
+              type: 'link',
+              description: link.description || ''
+            });
+          } catch (error) {
+            return this.sendBadRequest(res, `Invalid URL format: ${link.url}`);
+          }
+        }
+      }
+    }
+
+    // Validate file attachments
+    const validFileTypes = ['pdf', 'doc', 'docx', 'txt', 'jpg', 'jpeg', 'png', 'gif', 'webp'];
+    const maxFileSize = 10 * 1024 * 1024; // 10MB
+
+    for (const file of files) {
+      const fileExtension = file.originalname.split('.').pop().toLowerCase();
+      if (!validFileTypes.includes(fileExtension)) {
+        return this.sendBadRequest(res, `Unsupported file type: ${fileExtension}. Supported types: ${validFileTypes.join(', ')}`);
+      }
+      if (file.size > maxFileSize) {
+        return this.sendBadRequest(res, `File ${file.originalname} exceeds 10MB limit`);
+      }
+    }
+
     const taskData = {
       ideaId,
       title: title.trim(),
@@ -75,7 +125,9 @@ class TaskController extends BaseController {
       deadline: deadlineDate,
       assignmentType: assignmentType || 'specific',
       assignedUsers: assignedUsers || [],
-      tags: tags || []
+      tags: tags || [],
+      attachmentFiles: files,
+      attachmentLinks: validatedLinks
     };
 
     const task = await this.taskService.createTask(userId, taskData);

@@ -131,4 +131,7 @@ router.get('/profile/download', authenticateToken, userController.downloadProfil
 router.get('/profile/ideas/stats', authenticateToken, userController.getProfileIdeasStats);
 router.get('/profile/contributions', authenticateToken, userController.getProfileContributions);
 
+// Public profile routes (for getting other users' profiles)
+router.get('/:userId/profile', authenticateToken, userController.getPublicProfile);
+
 export default router; 

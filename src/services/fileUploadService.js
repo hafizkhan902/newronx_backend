@@ -20,28 +20,49 @@ export class FileUploadService {
         throw new Error('No file provided');
       }
 
+      // Determine resource type based on file type
+      let resourceType = 'auto';
+      if (file.mimetype === 'text/plain' || file.originalname.endsWith('.txt')) {
+        resourceType = 'raw';
+      }
+
       const uploadOptions = {
         folder,
-        resource_type: 'auto',
-        allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx'],
-        transformation: [
-          { quality: 'auto:good' },
-          { fetch_format: 'auto' }
-        ],
+        resource_type: resourceType,
         ...options
       };
 
-      // If it's an image, add image-specific transformations
-      if (file.mimetype.startsWith('image/')) {
-        uploadOptions.transformation.push(
-          { width: 800, height: 800, crop: 'limit' }
-        );
+      // Only add transformations and format restrictions for non-raw uploads
+      if (resourceType !== 'raw') {
+        uploadOptions.allowed_formats = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'doc', 'docx'];
+        
+        // Only add transformations for images
+        if (file.mimetype.startsWith('image/')) {
+          uploadOptions.transformation = [
+            { quality: 'auto:good' },
+            { fetch_format: 'auto' },
+            { width: 800, height: 800, crop: 'limit' }
+          ];
+        }
       }
 
-      const result = await cloudinary.uploader.upload(file.path, uploadOptions);
-
-      // Clean up local file after upload
-      await this.cleanupLocalFile(file.path);
+      let result;
+      if (file.buffer) {
+        // For multer memoryStorage - upload from buffer
+        result = await new Promise((resolve, reject) => {
+          cloudinary.uploader.upload_stream(uploadOptions, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }).end(file.buffer);
+        });
+      } else if (file.path) {
+        // For multer diskStorage - upload from file path
+        result = await cloudinary.uploader.upload(file.path, uploadOptions);
+        // Clean up local file after upload
+        await this.cleanupLocalFile(file.path);
+      } else {
+        throw new Error('Missing required parameter - file');
+      }
 
       return {
         publicId: result.public_id,

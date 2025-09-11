@@ -6,8 +6,15 @@ export const authenticateToken = async (req, res, next) => {
   try {
     console.log('[Auth] authenticateToken called for:', req.method, req.path);
     console.log('[Auth] Cookies received:', req.cookies);
+    console.log('[Auth] Authorization header:', req.headers.authorization);
     
-    const token = req.cookies.token;
+    // Try to get token from cookies first, then from Authorization header
+    let token = req.cookies.token;
+    
+    if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+      token = req.headers.authorization.substring(7);
+    }
+    
     console.log('[Auth] Token extracted:', token ? `${token.substring(0, 20)}...` : 'undefined');
     
     if (!token) {

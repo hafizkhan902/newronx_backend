@@ -15,7 +15,9 @@ class TaskService {
       deadline,
       assignmentType,
       assignedUsers,
-      tags
+      tags,
+      attachmentFiles,
+      attachmentLinks
     } = taskData;
 
     // Verify idea exists and user has permission
@@ -36,6 +38,53 @@ class TaskService {
       throw new Error('Only idea author or team members can create tasks');
     }
 
+    // Process file attachments if provided
+    let processedAttachments = [];
+    if (attachmentFiles && attachmentFiles.length > 0) {
+      console.log('Processing attachments:', attachmentFiles.length, 'files');
+      const { FileUploadService } = await import('./fileUploadService.js');
+      
+      for (const file of attachmentFiles) {
+        try {
+          console.log('Uploading file:', file.originalname, 'size:', file.size, 'has buffer:', !!file.buffer);
+          const uploadResult = await FileUploadService.uploadToCloudinary(file, 'tasks');
+          console.log('Upload result:', uploadResult);
+          
+          const attachment = {
+            filename: uploadResult.publicId || uploadResult.public_id,
+            originalName: file.originalname,
+            url: uploadResult.url || uploadResult.secure_url,
+            fileType: file.mimetype,
+            fileSize: file.size,
+            uploadedBy: userId,
+            uploadedAt: new Date()
+          };
+          
+          console.log('Processed attachment:', attachment);
+          processedAttachments.push(attachment);
+          console.log('File uploaded successfully:', attachment.url);
+        } catch (error) {
+          console.error('File upload error:', error);
+          throw new Error(`Failed to upload file ${file.originalname}: ${error.message}`);
+        }
+      }
+    }
+
+    // Process link attachments if provided
+    if (attachmentLinks && attachmentLinks.length > 0) {
+      for (const link of attachmentLinks) {
+        processedAttachments.push({
+          filename: `link_${Date.now()}`,
+          originalName: link.title,
+          url: link.url,
+          fileType: 'link',
+          fileSize: 0,
+          uploadedBy: userId,
+          uploadedAt: new Date()
+        });
+      }
+    }
+
     // Create the task
     const task = new Task({
       title: title.trim(),
@@ -48,7 +97,8 @@ class TaskService {
       idea: ideaId,
       assignmentType,
       tags: tags ? tags.map(tag => tag.trim().toLowerCase()) : [],
-      watchers: [userId] // Creator is automatically a watcher
+      watchers: [userId], // Creator is automatically a watcher
+      attachments: processedAttachments
     });
 
     // Handle assignments based on type
@@ -65,9 +115,7 @@ class TaskService {
       const uniqueMembers = [...new Set(allMembers.map(id => id.toString()))];
       
       uniqueMembers.forEach(memberId => {
-        if (memberId !== userId.toString()) { // Don't duplicate creator
-          task.assignToUser(memberId, userId);
-        }
+        task.assignToUser(memberId, userId);
       });
     } else if (assignmentType === 'specific' && assignedUsers && assignedUsers.length > 0) {
       // Validate assigned users are team members
@@ -100,7 +148,7 @@ class TaskService {
       .populate('assignments.user', 'firstName fullName avatar online lastSeen')
       .populate('assignments.assignedBy', 'firstName fullName')
       .populate('comments.user', 'firstName fullName avatar')
-      .populate('attachments.uploadedBy', 'firstName fullName')
+      .populate('attachments.uploadedBy', 'firstName fullName avatar')
       .populate('watchers', 'firstName fullName avatar')
       .populate('dependencies.task', 'title status priority')
       .lean();
@@ -206,6 +254,7 @@ class TaskService {
       .populate('assignments.user', 'firstName fullName avatar online lastSeen')
       .populate('assignments.assignedBy', 'firstName fullName')
       .populate('comments.user', 'firstName fullName avatar')
+      .populate('attachments.uploadedBy', 'firstName fullName avatar')
       .sort(sort)
       .skip(skip)
       .limit(limit)
@@ -400,6 +449,7 @@ class TaskService {
       .populate('createdBy', 'firstName fullName avatar')
       .populate('idea', 'title author')
       .populate('assignments.user', 'firstName fullName avatar')
+      .populate('attachments.uploadedBy', 'firstName fullName avatar')
       .sort({ deadline: 1, priority: -1 })
       .skip(skip)
       .limit(limit)
