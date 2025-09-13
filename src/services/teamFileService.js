@@ -24,7 +24,9 @@ class TeamFileService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Only team members can upload files');
@@ -82,7 +84,9 @@ class TeamFileService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Only team members can upload files');
@@ -148,7 +152,9 @@ class TeamFileService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Only team members can view team files');
@@ -220,7 +226,9 @@ class TeamFileService {
     // Verify user is a team member
     const idea = await Idea.findById(file.ideaId);
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -319,7 +327,9 @@ class TeamFileService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -381,7 +391,9 @@ class TeamFileService {
     }
 
     const isTeamMember = idea.author.toString() === requestingUserId.toString() || 
-                        idea.team.some(member => member.user.toString() === requestingUserId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === requestingUserId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -422,7 +434,9 @@ class TeamFileService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');

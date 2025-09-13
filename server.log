@@ -1,0 +1,3044 @@
+Email Configuration: {
+  host: 'smtp.hostinger.com',
+  port: 587,
+  secure: false,
+  user: 'info@newronx.com',
+  provider: undefined
+}
+Email Configuration: {
+  host: 'smtp.hostinger.com',
+  port: 587,
+  secure: false,
+  user: 'info@newronx.com',
+  provider: undefined
+}
+[36m{"timestamp":"2025-09-11T15:50:38.495Z","level":"INFO","message":"AI Service Constructor Debug:","apiKeyConfigured":true,"apiKeyLength":39,"featureEnabled":true,"model":"gemini-1.5-flash","pid":71697,"environment":"development"}[0m
+[36m{"timestamp":"2025-09-11T15:50:38.501Z","level":"INFO","message":"Google AI service initialized successfully","pid":71697,"environment":"development"}[0m
+[36m{"timestamp":"2025-09-11T15:50:38.506Z","level":"INFO","message":"Configuration validated successfully","pid":71697,"environment":"development"}[0m
+[36m{"timestamp":"2025-09-11T15:50:38.661Z","level":"INFO","message":"Cloudinary configured successfully","pid":71697,"environment":"development"}[0m
+Checking Google OAuth credentials...
+GOOGLE_CLIENT_ID: Found
+GOOGLE_CLIENT_SECRETE: Found
+CALLBACK_URL: http://localhost:2000/api/auth/google/callback
+Initializing Google OAuth strategy...
+Google OAuth strategy registered successfully
+Passport configuration completed.
+🔌 Attempting to connect to MongoDB...
+📍 Connection URI: Found
+🌍 Environment: development
+(node:71697) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🚀 MongoDB connected successfully with optimization (undefined mode)
+📊 Connection pool: 10 max, 2 min
+Server running on port 2000 (Worker: 71697)
+Socket.IO server initialized
+[Auth] authenticateToken called for: GET /68b310dec1769ad5a4a420f3/dashboard
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: Bearer invalid_token
+[Auth] Token extracted: invalid_token...
+[Auth] Verifying JWT token...
+[Auth] Error in authenticateToken: JsonWebTokenError jwt malformed
+[Validation] Validating body: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Validation] Validation passed for body
+[Validation] Validated data: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Auth] authenticateToken called for: GET /68b310dec1769ad5a4a420f3/dashboard
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDU4NjksImV4cCI6MTc1NzYwOTQ2OX0.-Fq1u-lxewPaCdvKT3CvIwQG-mjt81pe_c5v-b7y0VE
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /profile
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+⚠️ MongoDB disconnected
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[33m{"timestamp":"2025-09-11T16:25:41.582Z","level":"WARN","message":"Route not found","method":"PUT","url":"/api/auth/login","ip":"::1","pid":71697,"environment":"development"}[0m
+[33m{"timestamp":"2025-09-11T16:25:47.566Z","level":"WARN","message":"Route not found","method":"GET","url":"/api/auth/login","ip":"::1","pid":71697,"environment":"development"}[0m
+[Validation] Validating body: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Validation] Validation passed for body
+[Validation] Validated data: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2MDQ4NDQsImV4cCI6MTc1NzYwODQ0NH0.Bxl1C2UeGOavkgix6p-OJOozVPeb80XkMvHY-tKhE0M'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Validation] Validating body: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Validation] Validation passed for body
+[Validation] Validated data: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Auth] authenticateToken called for: GET /profile
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Validation] Validating body: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Validation] Validation passed for body
+[Validation] Validated data: {
+  "email": "hafiz0175219@gmail.com",
+  "password": "@Gmail.com920"
+}
+[Auth] authenticateToken called for: GET /profile
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /68bdb87580978517ef497ce8/structure
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /68bdb87580978517ef497ce8/members/68bdb8b080978517ef497d16/subroles
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+⚠️ MongoDB disconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGEzNGU0NTE3NDVlMWMyMjM3Zjk3YzQiLCJlbWFpbCI6ImhhZml6MDE3NTIxOUBnbWFpbC5jb20iLCJpYXQiOjE3NTc2Njk2NzUsImV4cCI6MTc1NzY3MzI3NX0.VWGQQzxC1TJxYqseh9zqtmrWNiRr-fqnBcZfMxpnTL8'
+}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: eyJhbGciOiJIUzI1NiIs...
+[Auth] Verifying JWT token...
+[Auth] JWT decoded successfully, userId: 68a34e451745e1c2237f97c4
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+[Auth] User found: {
+  id: new ObjectId("68a34e451745e1c2237f97c4"),
+  email: 'hafiz0175219@gmail.com'
+}
+[Auth] Setting req.user and calling next()
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+⚠️ MongoDB disconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+⚠️ MongoDB disconnected
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /chat/68bdb8b080978517ef497d1b
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /idea/68bdb87580978517ef497ce8
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+[Auth] authenticateToken called for: GET /profile
+[Auth] Cookies received: [Object: null prototype] {}
+[Auth] Authorization header: undefined
+[Auth] Token extracted: undefined
+[Auth] No token found, returning 401
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connected successfully
+📊 Database connected successfully
+🔄 MongoDB reconnected
+⚠️ MongoDB disconnected
+✅ MongoDB connection closed gracefully

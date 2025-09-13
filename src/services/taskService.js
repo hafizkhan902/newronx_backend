@@ -126,9 +126,22 @@ class TaskService {
           .map(member => member.user._id.toString())
       ];
 
-      for (const assignedUserId of assignedUsers) {
-        if (!teamMemberIds.includes(assignedUserId.toString())) {
-          throw new Error(`User ${assignedUserId} is not a team member`);
+      // Filter out empty or invalid user IDs
+      const validAssignedUsers = assignedUsers.filter(userId => 
+        userId && userId.toString().trim() !== ''
+      );
+
+      if (validAssignedUsers.length === 0) {
+        throw new Error('No valid users provided for assignment');
+      }
+
+      for (const assignedUserId of validAssignedUsers) {
+        const userIdString = assignedUserId.toString().trim();
+        if (!teamMemberIds.includes(userIdString)) {
+          // Get user info for better error message
+          const user = await User.findById(userIdString).select('firstName lastName fullName');
+          const userName = user ? (user.fullName || `${user.firstName} ${user.lastName}`) : userIdString;
+          throw new Error(`User ${userName} (${userIdString}) is not a team member`);
         }
         task.assignToUser(assignedUserId, userId);
       }

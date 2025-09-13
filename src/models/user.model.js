@@ -313,6 +313,64 @@ const userSchema = new mongoose.Schema({
   resume: {
     type: String,
     default: ''
+  },
+  // Premium subscription fields
+  subscription: {
+    isPremium: {
+      type: Boolean,
+      default: false
+    },
+    plan: {
+      type: String,
+      enum: ['free', 'premium', 'pro', 'enterprise'],
+      default: 'free'
+    },
+    status: {
+      type: String,
+      enum: ['active', 'inactive', 'cancelled', 'expired', 'trial'],
+      default: 'inactive'
+    },
+    startDate: {
+      type: Date,
+      default: null
+    },
+    endDate: {
+      type: Date,
+      default: null
+    },
+    trialEndDate: {
+      type: Date,
+      default: null
+    },
+    paymentMethod: {
+      type: String,
+      enum: ['stripe', 'paypal', 'manual', 'free'],
+      default: 'free'
+    },
+    subscriptionId: {
+      type: String,
+      default: null
+    },
+    customerId: {
+      type: String,
+      default: null
+    },
+    lastPaymentDate: {
+      type: Date,
+      default: null
+    },
+    nextPaymentDate: {
+      type: Date,
+      default: null
+    },
+    cancelledAt: {
+      type: Date,
+      default: null
+    },
+    cancelReason: {
+      type: String,
+      default: null
+    }
   }
 }, { timestamps: true });
 
@@ -327,6 +385,12 @@ userSchema.index({ googleEmail: 1 }, { unique: true, sparse: true, background: t
 userSchema.index({ authProvider: 1, emailVerified: 1 }, { background: true });
 userSchema.index({ createdAt: -1 }, { background: true }); // For sorting by registration date
 userSchema.index({ updatedAt: -1 }, { background: true }); // For sorting by last update
+
+// Premium subscription indexes
+userSchema.index({ 'subscription.isPremium': 1 }, { background: true });
+userSchema.index({ 'subscription.status': 1 }, { background: true });
+userSchema.index({ 'subscription.plan': 1 }, { background: true });
+userSchema.index({ 'subscription.endDate': 1 }, { background: true }); // For expiry checks
 
 // Search and discovery indexes
 userSchema.index({ 

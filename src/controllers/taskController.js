@@ -25,10 +25,30 @@ class TaskController extends BaseController {
       estimatedHours,
       deadline,
       assignmentType,
-      assignedUsers,
+      assignedUsers: rawAssignedUsers,
       tags,
       links
     } = req.body;
+
+    // Process assignedUsers - handle both string and array formats
+    let assignedUsers = [];
+    if (rawAssignedUsers) {
+      try {
+        if (typeof rawAssignedUsers === 'string') {
+          // If it's a string, try to parse as JSON first, then split by comma
+          try {
+            assignedUsers = JSON.parse(rawAssignedUsers);
+          } catch {
+            assignedUsers = rawAssignedUsers.split(',').map(id => id.trim()).filter(id => id);
+          }
+        } else if (Array.isArray(rawAssignedUsers)) {
+          assignedUsers = rawAssignedUsers.filter(id => id && id.toString().trim() !== '');
+        }
+      } catch (error) {
+        console.error('Error processing assignedUsers:', error);
+        assignedUsers = [];
+      }
+    }
 
     // Handle file attachments from multer
     const files = req.files || [];
@@ -56,6 +76,21 @@ class TaskController extends BaseController {
     // Validate assignment type
     if (assignmentType && !['specific', 'everyone', 'unassigned'].includes(assignmentType)) {
       return this.sendBadRequest(res, 'Assignment type must be one of: specific, everyone, unassigned');
+    }
+
+    // Validate specific assignment requirements
+    if (assignmentType === 'specific') {
+      if (!assignedUsers || assignedUsers.length === 0) {
+        return this.sendBadRequest(res, 'Assigned users are required when assignment type is specific');
+      }
+      
+      // Validate that all assigned user IDs are valid ObjectIds
+      const mongoose = await import('mongoose');
+      for (const userId of assignedUsers) {
+        if (!mongoose.default.Types.ObjectId.isValid(userId)) {
+          return this.sendBadRequest(res, `Invalid user ID format: ${userId}`);
+        }
+      }
     }
 
     // Validate estimated hours

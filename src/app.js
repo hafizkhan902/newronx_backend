@@ -27,6 +27,7 @@ import teamFileRoutes from './routes/teamFile.routes.js';
 import contributionsRoutes from './routes/contributions.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
 import aiRoutes from './routes/ai.routes.js';
+import performanceRoutes from './routes/performance.routes.js';
 
 const app = express();
 
@@ -409,6 +410,7 @@ app.use('/api/team-files', teamFileRoutes);
 app.use('/api/contributions', contributionsRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/performance', performanceRoutes);
 
 // 404 handler for undefined routes
 app.use('*', (req, res) => {

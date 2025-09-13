@@ -26,7 +26,9 @@ class TeamPostService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Only team members can create posts');
@@ -124,7 +126,9 @@ class TeamPostService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Only team members can view team posts');
@@ -181,7 +185,9 @@ class TeamPostService {
     // Verify user is a team member
     const idea = await Idea.findById(post.ideaId);
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -283,7 +289,9 @@ class TeamPostService {
     // Verify user is a team member
     const idea = await Idea.findById(post.ideaId);
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -321,7 +329,9 @@ class TeamPostService {
     // Verify user is a team member
     const idea = await Idea.findById(post.ideaId);
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -477,7 +487,9 @@ class TeamPostService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -497,7 +509,9 @@ class TeamPostService {
     }
 
     const isTeamMember = idea.author.toString() === requestingUserId.toString() || 
-                        idea.team.some(member => member.user.toString() === requestingUserId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === requestingUserId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
@@ -570,7 +584,9 @@ class TeamPostService {
     }
 
     const isTeamMember = idea.author.toString() === userId.toString() || 
-                        idea.team.some(member => member.user.toString() === userId.toString());
+                        (idea.teamStructure?.teamComposition || []).some(member => 
+                          member.user.toString() === userId.toString() && member.status === 'active'
+                        );
     
     if (!isTeamMember) {
       throw new Error('Access denied');
