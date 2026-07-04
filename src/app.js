@@ -399,6 +399,7 @@ app.get('/', (req, res) => {
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+
 app.use('/api/ideas', ideaRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/messages', messageRoutes);
