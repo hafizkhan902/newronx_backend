@@ -432,7 +432,6 @@ const cacheService = new CacheService();
 
 // Export singleton and class
 export default cacheService;
-export { CacheService };
 
 // Export convenience functions
 export const cache = cacheService;
