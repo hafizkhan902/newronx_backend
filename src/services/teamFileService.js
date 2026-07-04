@@ -68,7 +68,7 @@ class TeamFileService {
    * Upload a file via link
    */
   async uploadLink(userId, linkData) {
-    const { 
+    let { 
       ideaId, 
       url, 
       title, 
