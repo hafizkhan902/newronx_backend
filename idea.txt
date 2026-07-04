@@ -1,0 +1,22 @@
+🔒 Privacy
+Control who can see your profile
+Manage idea visibility (public/private)
+Control who can message you
+Manage friend/connection requests
+Set profile search visibility
+Control data sharing preferences
+🔔 Notifications
+Email notification preferences
+Push notification settings
+Message notification settings
+Idea collaboration notifications
+Comment and like notifications
+Group chat notifications
+New connection requests
+💡 Idea Preferences
+Default idea visibility settings
+Collaboration invitation preferences
+Idea category preferences
+Auto-save draft settings
+Idea sharing permissions
+Collaboration role preferences

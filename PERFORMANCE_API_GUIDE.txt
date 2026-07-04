@@ -1,0 +1,800 @@
+================================================================================
+                        📊 TEAM PERFORMANCE API - COMPREHENSIVE GUIDE
+================================================================================
+
+🎯 OVERVIEW
+-----------
+Complete performance analytics system for StudentMate teams with:
+- Team-wide performance metrics and insights
+- Individual member performance analysis
+- Historical trends and pattern recognition
+- Automated alerts and recommendations
+- Premium access control with trial support
+- Advanced calculation algorithms with weighted scoring
+
+Base URL: /api/performance
+Access Level: Premium Feature (Idea Authors Only)
+Rate Limits: 50 req/hour (Premium), 5 req/hour (Trial)
+
+================================================================================
+🔐 AUTHENTICATION & ACCESS CONTROL
+================================================================================
+
+All endpoints require:
+1. JWT Authentication (Bearer token)
+2. Premium subscription or active trial
+3. Idea/Team ownership verification (for team-specific endpoints)
+
+Headers Required:
+```
+Authorization: Bearer {your_jwt_token}
+Content-Type: application/json
+```
+
+Access Restrictions:
+- Only idea authors can access team performance data
+- Individual performance data is only visible to team leaders
+- Alerts are only visible to alert owners
+- Rate limiting based on subscription tier
+
+================================================================================
+📊 TEAM PERFORMANCE ENDPOINTS
+================================================================================
+
+1️⃣ GET TEAM PERFORMANCE DASHBOARD
+----------------------------------
+GET /api/performance/{ideaId}/dashboard
+
+The main endpoint for comprehensive team performance analytics.
+
+Query Parameters:
+- timeRange: '7d', '30d', '90d', 'all' (default: '30d')
+- includeMembers: 'true'/'false' (default: 'true')
+- includeInsights: 'true'/'false' (default: 'true')
+
+Example Request:
+```
+GET /api/performance/68b310dec1769ad5a4a420f3/dashboard?timeRange=30d&includeMembers=true
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Team performance data retrieved successfully",
+  "data": {
+    "teamId": "68b310dec1769ad5a4a420f3",
+    "calculationDate": "2025-09-11T10:30:00.000Z",
+    "timeRange": "30d",
+    
+    "overall": {
+      "productivity": 87,           // 0-100% team productivity score
+      "quality": 4.2,              // 0-5.0 average quality score
+      "collaboration": 3.8,        // 0-5.0 collaboration score
+      "velocity": 2.3,             // tasks per week
+      "avgResponseTimeMs": 8640000 // average response time in milliseconds
+    },
+    
+    "tasks": {
+      "total": 45,
+      "completed": 38,
+      "inProgress": 5,
+      "overdue": 2,
+      "completionRate": 84         // percentage
+    },
+    
+    "communication": {
+      "totalMessages": 342,
+      "activeMembers": 6,
+      "avgResponseTime": "2.4h",
+      "avgEngagementRate": 3.2     // messages per member per day
+    },
+    
+    "engagement": {
+      "totalPosts": 28,
+      "totalFiles": 15,
+      "avgEngagement": 7.2,        // likes + comments per post
+      "knowledgeSharingScore": 4.1 // 0-5.0
+    },
+    
+    "members": [
+      {
+        "memberId": "68b3119cc1769ad5a4a4213b",
+        "user": {
+          "_id": "68a34e451745e1c2237f97c4",
+          "firstName": "John",
+          "fullName": "John Doe",
+          "avatar": "https://res.cloudinary.com/...",
+          "role": "Frontend Developer"
+        },
+        "performance": {
+          "overall": {
+            "score": 4.3,           // 0-5.0 weighted overall score
+            "grade": "A-",          // Letter grade A+ to D
+            "trend": "up"           // up/down/stable
+          },
+          "tasks": {
+            "score": 4.5,
+            "completionRate": 92,   // percentage
+            "onTimeRate": 88,       // percentage
+            "totalTasks": 12,
+            "completedTasks": 11,
+            "inProgressTasks": 1,
+            "overdueTasks": 0,
+            "avgCompletionTime": "2.3d",
+            "priorityPerformance": 95 // high-priority task handling
+          },
+          "communication": {
+            "score": 4.0,
+            "avgResponseTime": "1.8h",
+            "messagesPerDay": 3.2,
+            "totalMessages": 96,
+            "activityLevel": "high", // low/medium/high
+            "avgMessageLength": 87,
+            "daysActive": 28
+          },
+          "collaboration": {
+            "score": 4.2,
+            "totalPosts": 8,
+            "avgLikesPerPost": 2.3,
+            "avgCommentsPerPost": 1.8,
+            "mentionCount": 12,      // how often they mention others
+            "knowledgeSharing": 5,   // helpful posts/files shared
+            "engagementRate": 6.8    // 0-10 scale
+          },
+          "contribution": {
+            "score": 4.1,
+            "totalFiles": 7,
+            "totalDownloads": 23,
+            "avgDownloadsPerFile": 3.3,
+            "documentFiles": 3,
+            "codeFiles": 2,
+            "designFiles": 2,
+            "diversityScore": 3.0,   // variety of contribution types
+            "contributionTypes": ["documentation", "code", "design"]
+          }
+        },
+        "insights": [
+          {
+            "type": "success",
+            "message": "Excellent task completion rate",
+            "category": "tasks"
+          },
+          {
+            "type": "success",
+            "message": "Very responsive team member",
+            "category": "communication"
+          }
+        ],
+        "recommendations": [
+          {
+            "priority": "low",
+            "action": "Continue Current Pace",
+            "description": "Maintain excellent performance standards",
+            "category": "tasks"
+          }
+        ]
+      }
+    ],
+    
+    "teamInsights": [
+      {
+        "type": "success",
+        "title": "Strong Team Performance",
+        "message": "5 out of 7 members are high performers",
+        "category": "overall"
+      },
+      {
+        "type": "warning",
+        "title": "Communication Gaps",
+        "message": "2 members have low response times",
+        "category": "communication"
+      }
+    ],
+    
+    "teamRecommendations": [
+      {
+        "priority": "medium",
+        "action": "Implement Mentoring Program",
+        "description": "Pair struggling members with high performers",
+        "category": "team"
+      },
+      {
+        "priority": "high",
+        "action": "Address Overdue Tasks",
+        "description": "2 tasks are overdue. Review deadlines and redistribute",
+        "category": "tasks"
+      }
+    ]
+  }
+}
+```
+
+2️⃣ TRIGGER PERFORMANCE RECALCULATION
+-------------------------------------
+POST /api/performance/{ideaId}/recalculate
+
+Force recalculation of team performance metrics.
+
+Request Body:
+```json
+{
+  "force": true,        // Optional: override recent calculation check
+  "timeRange": "30d"    // Optional: specific time range to recalculate
+}
+```
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Performance recalculation triggered",
+  "data": {
+    "calculationId": "calc_1726052400123_abc789def",
+    "estimatedCompletionTime": "2025-09-11T10:35:00.000Z",
+    "status": "processing",
+    "timeRange": "30d",
+    "forced": true
+  }
+}
+```
+
+3️⃣ GET PERFORMANCE STATISTICS
+------------------------------
+GET /api/performance/{ideaId}/stats
+
+Get summarized performance statistics and key metrics.
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Performance statistics retrieved successfully",
+  "data": {
+    "teamSize": 7,
+    "averagePerformance": {
+      "overall": 3.8,
+      "tasks": 4.1,
+      "communication": 3.6,
+      "collaboration": 3.9,
+      "contribution": 3.5
+    },
+    "topPerformer": {
+      "name": "John Doe",
+      "score": 4.3,
+      "grade": "A-"
+    },
+    "performanceDistribution": {
+      "excellent": 2,        // A+, A performers
+      "good": 3,            // A-, B+ performers  
+      "average": 1,         // B, B- performers
+      "needsImprovement": 1 // Below B- performers
+    },
+    "keyMetrics": {
+      "taskCompletionRate": 84,
+      "teamProductivity": 87,
+      "communicationActivity": 342,
+      "collaborationScore": 3.8
+    }
+  }
+}
+```
+
+4️⃣ EXPORT PERFORMANCE DATA
+---------------------------
+GET /api/performance/{ideaId}/export
+
+Export team performance data in JSON or CSV format.
+
+Query Parameters:
+- format: 'json'/'csv' (default: 'json')
+- timeRange: '7d'/'30d'/'90d'/'all' (default: '30d')
+- includeHistory: 'true'/'false' (default: 'false')
+
+JSON Export Response:
+```json
+{
+  "success": true,
+  "exportedAt": "2025-09-11T10:30:00.000Z",
+  "timeRange": "30d",
+  "data": {
+    // Full performance data structure
+  }
+}
+```
+
+CSV Export Response:
+```
+Content-Type: text/csv
+Content-Disposition: attachment; filename="team-performance-{ideaId}-30d.csv"
+
+Member Name,Role,Overall Score,Overall Grade,Task Score,Task Completion Rate,...
+"John Doe","Frontend Developer",4.3,"A-",4.5,92,...
+"Jane Smith","Backend Developer",4.1,"A-",4.2,88,...
+```
+
+================================================================================
+👤 INDIVIDUAL MEMBER PERFORMANCE ENDPOINTS
+================================================================================
+
+5️⃣ GET MEMBER PERFORMANCE DETAILS
+----------------------------------
+GET /api/performance/{ideaId}/members/{memberId}
+
+Get detailed performance analysis for a specific team member.
+
+Query Parameters:
+- timeRange: '7d'/'30d'/'90d'/'all' (default: '30d')
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Member performance data retrieved successfully",
+  "data": {
+    "member": {
+      "_id": "68b3119cc1769ad5a4a4213b",
+      "user": {
+        "_id": "68a34e451745e1c2237f97c4",
+        "firstName": "John",
+        "fullName": "John Doe",
+        "avatar": "https://res.cloudinary.com/...",
+        "email": "john.doe@example.com"
+      },
+      "role": "Frontend Developer"
+    },
+    
+    "performance": {
+      // Same structure as in team dashboard
+      "overall": { "score": 4.3, "grade": "A-", "trend": "up" },
+      "tasks": { /* detailed task metrics */ },
+      "communication": { /* detailed communication metrics */ },
+      "collaboration": { /* detailed collaboration metrics */ },
+      "contribution": { /* detailed contribution metrics */ }
+    },
+    
+    "historicalData": [
+      {
+        "date": "2025-09-01T00:00:00.000Z",
+        "overallScore": 4.1,
+        "taskScore": 4.2,
+        "communicationScore": 3.9,
+        "collaborationScore": 4.0,
+        "contributionScore": 3.8
+      },
+      // ... more historical points
+    ],
+    
+    "insights": [
+      {
+        "type": "success",
+        "message": "Consistent high performance over 30 days",
+        "category": "overall"
+      }
+    ],
+    
+    "recommendations": [
+      {
+        "priority": "low",
+        "action": "Maintain Excellence",
+        "description": "Continue current high-performance practices",
+        "category": "overall"
+      }
+    ],
+    
+    "trends": {
+      "overall": {
+        "direction": "improving", // improving/declining/stable
+        "change": 8.5            // percentage change
+      }
+    }
+  }
+}
+```
+
+================================================================================
+📈 PERFORMANCE HISTORY ENDPOINTS
+================================================================================
+
+6️⃣ GET PERFORMANCE HISTORY
+---------------------------
+GET /api/performance/{ideaId}/history
+
+Get historical performance trends and analysis.
+
+Query Parameters (Required):
+- startDate: ISO date string (e.g., "2025-08-01T00:00:00.000Z")
+- endDate: ISO date string (e.g., "2025-09-11T23:59:59.000Z")
+
+Query Parameters (Optional):
+- granularity: 'daily'/'weekly'/'monthly' (default: 'daily')
+- userId: User ID for individual trends (optional)
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Performance history retrieved successfully",
+  "data": {
+    "timeRange": {
+      "start": "2025-08-01T00:00:00.000Z",
+      "end": "2025-09-11T23:59:59.000Z",
+      "granularity": "daily"
+    },
+    
+    "teamTrends": [
+      {
+        "date": "2025-08-01",
+        "avgOverallScore": 3.8,
+        "avgTaskScore": 4.0,
+        "avgCommunicationScore": 3.6,
+        "avgCollaborationScore": 3.9,
+        "avgContributionScore": 3.7,
+        "totalTasksCompleted": 12,
+        "totalPostsCreated": 5,
+        "totalFilesUploaded": 3,
+        "memberCount": 7
+      },
+      // ... more daily data points
+    ],
+    
+    "memberTrends": [
+      {
+        "userId": "68a34e451745e1c2237f97c4",
+        "memberId": "68b3119cc1769ad5a4a4213b",
+        "trends": [
+          {
+            "date": "2025-08-01T00:00:00.000Z",
+            "overallScore": 4.1,
+            "taskScore": 4.2,
+            "communicationScore": 3.9,
+            "collaborationScore": 4.0,
+            "contributionScore": 3.8
+          }
+          // ... more data points
+        ]
+      }
+      // ... other members
+    ],
+    
+    "summary": {
+      "trend": "improving",     // improving/declining/stable
+      "change": 12.5,          // percentage change over period
+      "message": "Team performance has improved over the selected period"
+    }
+  }
+}
+```
+
+================================================================================
+🚨 PERFORMANCE ALERTS ENDPOINTS
+================================================================================
+
+7️⃣ GET TEAM PERFORMANCE ALERTS
+-------------------------------
+GET /api/performance/{ideaId}/alerts
+
+Get performance alerts for a specific team.
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Performance alerts retrieved successfully",
+  "data": {
+    "alerts": [
+      {
+        "_id": "68c45f2d1e89b3c4567890ab",
+        "alertType": "performance_drop",
+        "severity": "high",
+        "title": "Team Member Performance Drop Detected",
+        "message": "2 team members showing significant performance decline. Current average score: 2.3/5.0",
+        "category": "overall",
+        "affectedMembers": [
+          {
+            "userId": "68a34e451745e1c2237f97c5",
+            "currentScore": 2.1,
+            "previousScore": 3.8,
+            "role": "Backend Developer"
+          }
+        ],
+        "isRead": false,
+        "isResolved": false,
+        "createdAt": "2025-09-11T08:30:00.000Z",
+        "urgencyScore": 85
+      },
+      {
+        "_id": "68c45f2d1e89b3c4567890ac",
+        "alertType": "deadline_risk",
+        "severity": "critical",
+        "title": "Project Deadline Risk Alert",
+        "message": "3 overdue tasks and 5 at-risk tasks. Project completion at risk in 2 days.",
+        "category": "tasks",
+        "isRead": true,
+        "isResolved": false,
+        "createdAt": "2025-09-10T14:20:00.000Z",
+        "urgencyScore": 120
+      }
+    ],
+    
+    "statistics": {
+      "totalAlerts": 15,
+      "criticalAlerts": 2,
+      "highAlerts": 4,
+      "resolvedAlerts": 8,
+      "unreadAlerts": 3,
+      "avgResolutionTimeHours": 18.5
+    }
+  }
+}
+```
+
+8️⃣ GET ALL USER ALERTS
+-----------------------
+GET /api/performance/alerts
+
+Get all performance alerts for the authenticated user across all teams.
+
+Response: Same structure as team alerts but includes alerts from all user's teams.
+
+9️⃣ MARK ALERT AS READ
+----------------------
+PATCH /api/performance/alerts/{alertId}/read
+
+Mark a specific alert as read.
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Alert marked as read successfully",
+  "data": {
+    "alertId": "68c45f2d1e89b3c4567890ab",
+    "isRead": true,
+    "readAt": "2025-09-11T10:30:00.000Z"
+  }
+}
+```
+
+🔟 RESOLVE ALERT
+-----------------
+PATCH /api/performance/alerts/{alertId}/resolve
+
+Resolve a performance alert with optional notes.
+
+Request Body:
+```json
+{
+  "notes": "Addressed by implementing daily standups and reassigning overdue tasks"
+}
+```
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Alert resolved successfully",
+  "data": {
+    "alertId": "68c45f2d1e89b3c4567890ab",
+    "isResolved": true,
+    "resolvedAt": "2025-09-11T10:30:00.000Z",
+    "resolvedBy": "68a34e451745e1c2237f97c4",
+    "resolutionNotes": "Addressed by implementing daily standups and reassigning overdue tasks"
+  }
+}
+```
+
+================================================================================
+📊 PERFORMANCE CALCULATION METHODOLOGY
+================================================================================
+
+🎯 SCORING SYSTEM
+-----------------
+
+Individual Performance Score (0-5.0):
+- Tasks (40%): Completion rate, on-time delivery, priority handling
+- Communication (25%): Response time, activity level, message quality
+- Collaboration (20%): Team interaction, knowledge sharing, engagement
+- Contribution (15%): File sharing, documentation, variety of contributions
+
+Team Performance Score (0-100%):
+- Task Completion (40%): Overall completion rate and quality
+- Average Quality (30%): Average individual performance scores
+- Collaboration (20%): Team interaction and knowledge sharing
+- Velocity (10%): Task completion speed and efficiency
+
+🏆 GRADING SCALE
+----------------
+- A+ (4.5-5.0): Exceptional performance
+- A  (4.0-4.4): Excellent performance
+- A- (3.5-3.9): Very good performance
+- B+ (3.0-3.4): Good performance
+- B  (2.5-2.9): Above average performance
+- B- (2.0-2.4): Average performance
+- C+ (1.5-1.9): Below average performance
+- C  (1.0-1.4): Poor performance
+- C- (0.5-0.9): Very poor performance
+- D  (0.0-0.4): Failing performance
+
+📈 TREND ANALYSIS
+-----------------
+- Up: >5% improvement over comparison period
+- Stable: -5% to +5% change over comparison period
+- Down: >5% decline over comparison period
+
+🚨 ALERT THRESHOLDS
+-------------------
+- Performance Drop: Individual score < 3.0 or >20% decline
+- Deadline Risk: >3 overdue tasks or <60% completion rate
+- Low Engagement: <3.0 collaboration score or <2 messages/day
+- Team Milestone: >90% task completion or >4.0 average score
+
+================================================================================
+🔧 ERROR HANDLING
+================================================================================
+
+Common Error Responses:
+
+401 Unauthorized:
+```json
+{
+  "success": false,
+  "message": "Authentication required for premium features",
+  "statusCode": 401
+}
+```
+
+403 Forbidden (Premium Required):
+```json
+{
+  "success": false,
+  "message": "Premium subscription required to access performance analytics",
+  "statusCode": 403,
+  "data": {
+    "feature": "performance_analytics",
+    "upgradeUrl": "/premium/upgrade",
+    "premiumFeatures": [
+      "Team performance analytics",
+      "Individual member insights",
+      "Performance trends and history",
+      "Automated recommendations",
+      "Performance alerts"
+    ]
+  }
+}
+```
+
+403 Forbidden (Access Denied):
+```json
+{
+  "success": false,
+  "message": "Access denied. Performance analytics are only available to idea authors",
+  "statusCode": 403,
+  "data": {
+    "reason": "not_author",
+    "message": "Only the idea author can access team performance data"
+  }
+}
+```
+
+404 Not Found:
+```json
+{
+  "success": false,
+  "message": "Team or idea not found",
+  "statusCode": 404
+}
+```
+
+429 Too Many Requests:
+```json
+{
+  "success": false,
+  "message": "Performance analytics rate limit exceeded",
+  "statusCode": 429,
+  "data": {
+    "limit": 5,
+    "remaining": 0,
+    "resetTime": "2025-09-11T11:30:00.000Z",
+    "upgradeMessage": "Upgrade to premium for higher limits"
+  }
+}
+```
+
+500 Internal Server Error:
+```json
+{
+  "success": false,
+  "message": "An unexpected error occurred in performance analytics",
+  "statusCode": 500
+}
+```
+
+================================================================================
+💡 FRONTEND INTEGRATION TIPS
+================================================================================
+
+🎨 UI COMPONENTS NEEDED
+-----------------------
+1. Performance Dashboard with charts and metrics
+2. Member performance cards with grades and trends
+3. Historical trend charts (line/bar charts)
+4. Alert notification system
+5. Export functionality with format selection
+6. Performance insights and recommendations display
+
+📊 RECOMMENDED CHARTS
+--------------------
+- Overall team performance: Radial/donut chart
+- Individual scores: Horizontal bar chart
+- Trends over time: Line chart
+- Performance distribution: Pie chart
+- Task completion: Progress bars
+- Communication activity: Area chart
+
+🔄 REAL-TIME UPDATES
+--------------------
+- Poll dashboard endpoint every 15 minutes
+- Check for new alerts every 5 minutes
+- Show loading states during recalculation
+- Cache performance data for 5 minutes
+
+🎯 UX BEST PRACTICES
+-------------------
+- Show performance grades with color coding
+- Display trends with up/down arrows
+- Group insights by category (tasks, communication, etc.)
+- Provide clear upgrade prompts for free users
+- Show calculation timestamps and freshness indicators
+
+================================================================================
+🚀 QUICK START EXAMPLES
+================================================================================
+
+Basic Dashboard Request:
+```javascript
+const response = await fetch('/api/performance/68b310dec1769ad5a4a420f3/dashboard', {
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }
+});
+const performanceData = await response.json();
+```
+
+Trigger Recalculation:
+```javascript
+const response = await fetch('/api/performance/68b310dec1769ad5a4a420f3/recalculate', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ force: true, timeRange: '30d' })
+});
+```
+
+Export as CSV:
+```javascript
+const response = await fetch('/api/performance/68b310dec1769ad5a4a420f3/export?format=csv&timeRange=30d', {
+  headers: { 'Authorization': `Bearer ${token}` }
+});
+const csvBlob = await response.blob();
+const url = window.URL.createObjectURL(csvBlob);
+const a = document.createElement('a');
+a.href = url;
+a.download = 'team-performance.csv';
+a.click();
+```
+
+================================================================================
+
+This comprehensive performance analytics system provides deep insights into team 
+dynamics, individual contributions, and overall project health. The weighted 
+scoring algorithms ensure fair and accurate performance assessment while the 
+premium access control maintains feature value.
+
+For technical support or feature requests, contact the development team.
+
+================================================================================
